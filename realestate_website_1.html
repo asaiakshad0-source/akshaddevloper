@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NestVista Realty | Premium Properties</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a1628;
+  --navy-mid: #112240;
+  --emerald: #10b981;
+  --emerald-light: #34d399;
+  --pearl: #f8f5f0;
+  --pearl-dark: #ede8df;
+  --slate: #64748b;
+  --white: #ffffff;
+  --accent: #06d6a0;
+  --warm: #e2c792;
+  --text-dark: #0a1628;
+  --glass: rgba(255,255,255,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--pearl);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor-ring {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 2px solid var(--emerald);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, border-color 0.3s, width 0.3s, height 0.3s;
+  transform: translate(-50%, -50%);
+}
+.cursor-dot {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--emerald);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s ease;
+}
+.cursor-ring.hovering {
+  width: 60px; height: 60px;
+  border-color: var(--warm);
+  background: rgba(16,185,129,0.08);
+}
+
+/* ===== HEADER ===== */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 5%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 22, 40, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(16,185,129,0.2);
+  transition: all 0.3s;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  position: relative;
+}
+
+.logo-icon svg {
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(16,185,129,0.6)); }
+  50% { filter: drop-shadow(0 0 18px rgba(16,185,129,1)); }
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.logo-tagline {
+  font-size: 0.6rem;
+  color: var(--emerald-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+nav a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--emerald);
+  transition: width 0.3s;
+}
+
+nav a:hover { color: var(--emerald-light); }
+nav a:hover::after { width: 100%; }
+
+.nav-cta {
+  background: var(--emerald);
+  color: var(--navy) !important;
+  padding: 10px 22px;
+  border-radius: 4px;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-cta::after { display: none !important; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 0; right: 0;
+  background: var(--navy);
+  padding: 20px 5%;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 999;
+  border-bottom: 1px solid rgba(16,185,129,0.2);
+}
+
+.mobile-nav a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.mobile-nav.open { display: flex; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  background: var(--navy);
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 70% 50%, rgba(16,185,129,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(6,214,160,0.08) 0%, transparent 60%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(16,185,129,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,185,129,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.floating-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.15), transparent);
+  animation: floatShape 8s ease-in-out infinite;
+}
+
+.shape-1 { width: 300px; height: 300px; top: 10%; right: 15%; animation-delay: 0s; }
+.shape-2 { width: 200px; height: 200px; top: 60%; right: 5%; animation-delay: 2s; }
+.shape-3 { width: 150px; height: 150px; top: 30%; left: 5%; animation-delay: 4s; }
+
+@keyframes floatShape {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-30px) scale(1.1); opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 140px 8% 80px;
+  max-width: 700px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: var(--emerald-light);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: fadeSlideDown 0.8s ease forwards;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--emerald);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+h1.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  animation: fadeSlideUp 0.8s ease 0.2s forwards;
+  opacity: 0;
+}
+
+h1.hero-title em {
+  font-style: italic;
+  color: var(--emerald-light);
+}
+
+.hero-subtitle {
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  animation: fadeSlideUp 0.8s ease 0.4s forwards;
+  opacity: 0;
+  max-width: 500px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeSlideUp 0.8s ease 0.6s forwards;
+  opacity: 0;
+}
+
+.btn-primary {
+  background: var(--emerald);
+  color: var(--navy);
+  border: none;
+  padding: 16px 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--emerald-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(16,185,129,0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 16px 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-outline:hover {
+  border-color: var(--emerald);
+  color: var(--emerald-light);
+}
+
+.hero-stats {
+  position: absolute;
+  bottom: 60px;
+  right: 8%;
+  display: flex;
+  gap: 40px;
+  animation: fadeSlideUp 0.8s ease 0.8s forwards;
+  opacity: 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--emerald-light);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SECTION SHARED ===== */
+section { padding: 100px 8%; }
+
+.section-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  color: var(--slate);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 580px;
+}
+
+/* ===== PROPERTY TYPES ===== */
+.property-types {
+  background: var(--navy);
+}
+
+.property-types .section-title { color: var(--white); }
+.property-types .section-desc { color: rgba(255,255,255,0.5); }
+
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 50px;
+}
+
+.type-card {
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: all 0.4s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.type-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(16,185,129,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.type-card:hover { 
+  transform: translateY(-8px);
+  border-color: rgba(16,185,129,0.4);
+}
+
+.type-card:hover::before { opacity: 1; }
+
+.type-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  display: block;
+  filter: grayscale(0.3);
+  transition: transform 0.3s;
+}
+
+.type-card:hover .type-icon { transform: scale(1.2); }
+
+.type-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.type-count {
+  font-size: 0.75rem;
+  color: var(--emerald-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ===== PROPERTIES LISTING ===== */
+.properties-section {
+  background: var(--pearl);
+}
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 40px 0 50px;
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: 1px solid rgba(10,22,40,0.2);
+  background: transparent;
+  color: var(--slate);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+/* Horizontal scroll property showcase */
+.properties-scroll-wrap {
+  overflow-x: auto;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--emerald) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.properties-scroll-wrap::-webkit-scrollbar { height: 4px; }
+.properties-scroll-wrap::-webkit-scrollbar-track { background: transparent; }
+.properties-scroll-wrap::-webkit-scrollbar-thumb { background: var(--emerald); border-radius: 4px; }
+
+.properties-row {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  padding: 10px 0;
+}
+
+.prop-card {
+  width: 320px;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(10,22,40,0.08);
+  transition: all 0.4s;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.prop-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(10,22,40,0.15);
+}
+
+.prop-img-wrap {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+}
+
+.prop-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s;
+}
+
+.prop-card:hover .prop-img-wrap img { transform: scale(1.08); }
+
+.prop-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--emerald);
+  color: var(--navy);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.prop-badge.premium {
+  background: var(--warm);
+  color: #5a3e1b;
+}
+
+.prop-fav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.prop-fav:hover { transform: scale(1.2); }
+
+.prop-body {
+  padding: 20px;
+}
+
+.prop-type {
+  font-size: 0.65rem;
+  color: var(--emerald);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.prop-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.prop-loc {
+  font-size: 0.8rem;
+  color: var(--slate);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.prop-features {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--pearl-dark);
+  border-bottom: 1px solid var(--pearl-dark);
+  margin-bottom: 14px;
+}
+
+.prop-feat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+}
+
+.feat-icon { font-size: 1rem; }
+.feat-val { font-size: 0.75rem; font-weight: 600; color: var(--navy); }
+.feat-label { font-size: 0.6rem; color: var(--slate); text-transform: uppercase; letter-spacing: 1px; }
+
+.prop-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prop-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.prop-price span {
+  font-size: 0.7rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--slate);
+  font-weight: 400;
+}
+
+.btn-book {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.btn-book:hover {
+  background: var(--emerald);
+  color: var(--navy);
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,22,40,0.92);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalIn 0.4s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px; height: 40px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.modal-close:hover { background: var(--emerald); color: var(--navy); }
+
+.modal-gallery {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.modal-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-gallery-label {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(10,22,40,0.8);
+  color: var(--white);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  padding: 30px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.modal-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--emerald);
+  font-weight: 600;
+}
+
+.modal-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+  padding: 20px;
+  background: var(--pearl);
+  border-radius: 12px;
+}
+
+.modal-detail {
+  text-align: center;
+}
+
+.detail-val {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--navy);
+  display: block;
+}
+
+.detail-label {
+  font-size: 0.7rem;
+  color: var(--slate);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.modal-desc {
+  color: var(--slate);
+  line-height: 1.8;
+  font-size: 0.9rem;
+  margin: 16px 0;
+}
+
+.modal-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 24px;
+}
+
+.amenity-tag {
+  background: rgba(16,185,129,0.1);
+  color: #0a6b4c;
+  border: 1px solid rgba(16,185,129,0.2);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-whatsapp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: var(--white);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-whatsapp:hover {
+  background: #1eb857;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+}
+
+.btn-call-back {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid var(--navy);
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-call-back:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+/* ===== BOOKING TABLE SECTION ===== */
+.booking-section {
+  background: var(--navy-mid);
+}
+
+.booking-section .section-title { color: var(--white); }
+.booking-section .section-desc { color: rgba(255,255,255,0.5); }
+
+.booking-table-wrap {
+  overflow-x: auto;
+  margin-top: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.booking-table thead {
+  background: rgba(16,185,129,0.1);
+}
+
+.booking-table th {
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--emerald-light);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.booking-table td {
+  padding: 16px 20px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.2s;
+}
+
+.booking-table tbody tr:hover td {
+  background: rgba(16,185,129,0.04);
+  color: var(--white);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.status-available { background: rgba(16,185,129,0.15); color: var(--emerald-light); }
+.status-booked { background: rgba(239,68,68,0.15); color: #f87171; }
+.status-reserved { background: rgba(245,158,11,0.15); color: #fbbf24; }
+
+.table-book-btn {
+  background: var(--emerald);
+  color: var(--navy);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.table-book-btn:hover {
+  background: var(--emerald-light);
+  transform: translateY(-1px);
+}
+
+.table-book-btn.disabled {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.3);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== BOOKING FORM ===== */
+.booking-form-section {
+  background: var(--pearl);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-top: 50px;
+  align-items: start;
+}
+
+.form-info h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.form-info p {
+  color: var(--slate);
+  line-height: 1.8;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(10,22,40,0.06);
+}
+
+.contact-icon {
+  width: 40px; height: 40px;
+  background: rgba(16,185,129,0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.contact-item strong {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+
+.contact-item span {
+  font-size: 0.8rem;
+  color: var(--slate);
+}
+
+.booking-form {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 50px rgba(10,22,40,0.08);
+}
+
+.form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 28px;
+  font-weight: 600;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--pearl-dark);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--navy);
+  background: var(--pearl);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.1);
+  background: var(--white);
+}
+
+.form-group textarea { height: 90px; resize: none; }
+
+.form-submit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-submit-form {
+  width: 100%;
+  padding: 16px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-submit-form:hover {
+  background: var(--emerald);
+  color: var(--navy);
+  box-shadow: 0 8px 30px rgba(16,185,129,0.25);
+}
+
+.btn-whatsapp-form {
+  width: 100%;
+  padding: 16px;
+  background: #25D366;
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-whatsapp-form:hover {
+  background: #1eb857;
+  box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+}
+
+/* ===== SERVICES SECTION ===== */
+.services-section { background: var(--pearl); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.service-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px 28px;
+  border-left: 4px solid transparent;
+  box-shadow: 0 4px 20px rgba(10,22,40,0.06);
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--emerald), var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 50px rgba(10,22,40,0.12);
+}
+
+.service-card:hover::after { transform: scaleX(1); }
+
+.service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.service-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--navy);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.service-card p {
+  color: var(--slate);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* ===== WHY US ===== */
+.why-section {
+  background: linear-gradient(135deg, var(--navy) 0%, #0d2b4a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.08), transparent);
+}
+
+.why-section .section-title { color: var(--white); }
+.why-section .section-desc { color: rgba(255,255,255,0.5); }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.why-card {
+  padding: 32px 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  transition: all 0.4s;
+}
+
+.why-card:hover {
+  background: rgba(16,185,129,0.08);
+  border-color: rgba(16,185,129,0.3);
+  transform: translateY(-6px);
+}
+
+.why-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  color: rgba(16,185,129,0.25);
+  line-height: 1;
+  margin-bottom: 10px;
+  font-weight: 300;
+  transition: color 0.4s;
+}
+
+.why-card:hover .why-num { color: rgba(16,185,129,0.6); }
+
+.why-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.why-card p {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.83rem;
+  line-height: 1.7;
+}
+
+/* ===== WHATSAPP FLOAT ===== */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 500;
+}
+
+.wa-btn {
+  width: 58px; height: 58px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+  transition: all 0.3s;
+  text-decoration: none;
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+
+.wa-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 12px 40px rgba(37,211,102,0.6);
+}
+
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 8px 30px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.4); }
+  50% { box-shadow: 0 8px 30px rgba(37,211,102,0.4), 0 0 0 16px rgba(37,211,102,0); }
+}
+
+.wa-tooltip {
+  position: absolute;
+  right: 68px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background: var(--navy);
+  color: var(--white);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.wa-float:hover .wa-tooltip { opacity: 1; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--navy);
+  padding: 60px 8% 30px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-brand .logo-name { color: var(--white); font-size: 1.4rem; }
+.footer-brand .logo-tagline { color: var(--emerald-light); }
+
+.footer-desc {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.83rem;
+  line-height: 1.8;
+  margin: 16px 0 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  border-color: var(--emerald);
+  color: var(--emerald-light);
+  transform: translateY(-2px);
+}
+
+.footer-col h4 {
+  font-size: 0.7rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--emerald-light);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-col ul { list-style: none; }
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  font-size: 0.83rem;
+  transition: color 0.3s;
+}
+
+.footer-col ul li a:hover { color: var(--emerald-light); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copy {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.78rem;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  nav { display: none; }
+  .hamburger { display: flex; }
+  
+  .hero-content { padding: 120px 5% 60px; }
+  .hero-stats { position: relative; bottom: auto; right: auto; padding: 0 5% 40px; gap: 24px; }
+  
+  section { padding: 70px 5%; }
+  
+  .form-grid { grid-template-columns: 1fr; gap: 30px; }
+  .form-row { grid-template-columns: 1fr; }
+  
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-outline { text-align: center; }
+  
+  .booking-form { padding: 24px; }
+  
+  .modal-gallery { height: 200px; }
+  .modal-content { padding: 20px; }
+  .modal-actions { flex-direction: column; }
+  .btn-whatsapp, .btn-call-back { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- WHATSAPP FLOAT -->
+<div class="wa-float">
+  <div class="wa-tooltip">Chat with us!</div>
+  <a href="https://wa.me/919923054425?text=Hello%20NestVista%20Realty%2C%20I%20am%20interested%20in%20a%20property." class="wa-btn" target="_blank">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- HEADER -->
+<header id="mainHeader">
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="22" width="18" height="22" rx="2" fill="#10b981" opacity="0.9"/>
+        <rect x="26" y="14" width="18" height="30" rx="2" fill="#34d399" opacity="0.8"/>
+        <polygon points="2,22 24,8 46,22" fill="#06d6a0" opacity="0.7"/>
+        <circle cx="13" cy="32" r="2.5" fill="white"/>
+        <rect x="9" y="36" width="8" height="8" rx="1" fill="white" opacity="0.8"/>
+        <rect x="31" y="24" width="5" height="5" rx="0.5" fill="white" opacity="0.7"/>
+        <rect x="38" y="24" width="5" height="5" rx="0.5" fill="white" opacity="0.7"/>
+        <rect x="31" y="32" width="5" height="5" rx="0.5" fill="white" opacity="0.7"/>
+        <rect x="38" y="32" width="5" height="5" rx="0.5" fill="white" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">NestVista</span>
+      <span class="logo-tagline">Premium Realty</span>
+    </div>
+  </a>
+  <nav>
+    <a href="#properties">Properties</a>
+    <a href="#booking-table">Availability</a>
+    <a href="#services">Services</a>
+    <a href="#booking">Contact</a>
+    <a href="https://wa.me/919923054425?text=Hello%20NestVista%20Realty%2C%20I%20want%20to%20inquire%20about%20a%20property." target="_blank" class="nav-cta">WhatsApp Us</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#properties" onclick="closeMobileNav()">Properties</a>
+  <a href="#booking-table" onclick="closeMobileNav()">Availability</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#booking" onclick="closeMobileNav()">Contact</a>
+  <a href="https://wa.me/919923054425?text=Hello%20NestVista%20Realty%2C%20I%20want%20to%20inquire%20about%20a%20property." target="_blank">WhatsApp Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Pune's Premier Realty</div>
+    <h1 class="hero-title">Find Your <em>Dream</em> Property in Pune</h1>
+    <p class="hero-subtitle">2BHK, 3BHK, Villas, Plots & Commercial Spaces — Premium listings with direct WhatsApp booking. No brokers, no delays.</p>
+    <div class="hero-btns">
+      <a href="#properties" class="btn-primary">Browse Properties</a>
+      <a href="https://wa.me/919923054425?text=Hello%20NestVista%20Realty%2C%20I%20am%20interested%20in%20a%20property%20in%20Pune." target="_blank" class="btn-outline">WhatsApp Enquiry</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num" data-count="250">0</div>
+      <div class="stat-label">Properties</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-count="1200">0</div>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-count="8">0</div>
+      <div class="stat-label">Years Active</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTY TYPES -->
+<section class="property-types" id="types">
+  <div class="section-label">Browse by Type</div>
+  <h2 class="section-title">Every Kind of Property,<br>All in One Place</h2>
+  <div class="types-grid reveal">
+    <div class="type-card" onclick="filterProps('2bhk')">
+      <span class="type-icon">🏠</span>
+      <div class="type-name">2 BHK Flat</div>
+      <div class="type-count">42 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('3bhk')">
+      <span class="type-icon">🏢</span>
+      <div class="type-name">3 BHK Flat</div>
+      <div class="type-count">28 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('1bhk')">
+      <span class="type-icon">🏘️</span>
+      <div class="type-name">1 BHK / Studio</div>
+      <div class="type-count">55 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('villa')">
+      <span class="type-icon">🏡</span>
+      <div class="type-name">Villa / Bungalow</div>
+      <div class="type-count">14 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('plot')">
+      <span class="type-icon">🗺️</span>
+      <div class="type-name">Plot / Land</div>
+      <div class="type-count">31 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('commercial')">
+      <span class="type-icon">🏬</span>
+      <div class="type-name">Commercial</div>
+      <div class="type-count">19 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('penthouse')">
+      <span class="type-icon">🌆</span>
+      <div class="type-name">Penthouse</div>
+      <div class="type-count">6 Available</div>
+    </div>
+    <div class="type-card" onclick="filterProps('rowhouse')">
+      <span class="type-icon">🏠</span>
+      <div class="type-name">Row House</div>
+      <div class="type-count">22 Available</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section class="properties-section" id="properties">
+  <div class="section-label">Featured Listings</div>
+  <h2 class="section-title">Handpicked Properties<br>Just for You</h2>
+  <p class="section-desc">Swipe through our top listings. Click any property to view full details, images, and book via WhatsApp instantly.</p>
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" onclick="filterProps('all', this)">All</button>
+    <button class="filter-btn" onclick="filterProps('1bhk', this)">1 BHK</button>
+    <button class="filter-btn" onclick="filterProps('2bhk', this)">2 BHK</button>
+    <button class="filter-btn" onclick="filterProps('3bhk', this)">3 BHK</button>
+    <button class="filter-btn" onclick="filterProps('villa', this)">Villa</button>
+    <button class="filter-btn" onclick="filterProps('penthouse', this)">Penthouse</button>
+    <button class="filter-btn" onclick="filterProps('plot', this)">Plot</button>
+    <button class="filter-btn" onclick="filterProps('commercial', this)">Commercial</button>
+  </div>
+  <div class="properties-scroll-wrap">
+    <div class="properties-row" id="propertiesRow">
+      <!-- JS rendered -->
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING TABLE -->
+<section class="booking-section" id="booking-table">
+  <div class="section-label">Live Availability</div>
+  <h2 class="section-title">Property Availability<br>Status Board</h2>
+  <p class="section-desc">Real-time view of all available and booked properties. Click "Book Now" to instantly reach us on WhatsApp.</p>
+  <div class="booking-table-wrap reveal">
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Property Name</th>
+          <th>Type</th>
+          <th>Location</th>
+          <th>Size</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bookingTableBody">
+        <!-- JS rendered -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Full-Service Realty<br>Under One Roof</h2>
+  <p class="section-desc">From property search to registration — we handle everything. Your dream property journey starts here.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">🔍</span>
+      <h3>Property Search & Shortlisting</h3>
+      <p>We understand your requirement and shortlist the best-matching properties from our verified inventory across Pune.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🏦</span>
+      <h3>Home Loan Assistance</h3>
+      <p>Tie-ups with top banks for hassle-free home loans. We help you get the best interest rates and quick approval.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📋</span>
+      <h3>Legal Documentation</h3>
+      <p>Experienced legal team handles all paperwork — from agreement to registration — with full transparency.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🏠</span>
+      <h3>Interior Design Referral</h3>
+      <p>Get connected with our partner interior designers for turnkey home setup at exclusive client pricing.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">💼</span>
+      <h3>Rental Management</h3>
+      <p>Own a property? We manage tenants, rentals, and maintenance on your behalf for zero headaches.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📍</span>
+      <h3>Site Visit Scheduling</h3>
+      <p>Book a site visit at your convenience. Our agent will personally escort you and answer all questions on-site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="section-label">Why NestVista</div>
+  <h2 class="section-title">Trusted by 1200+<br>Happy Homeowners</h2>
+  <p class="section-desc">We're not just brokers — we're your property partners from search to keys.</p>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-num">01</div>
+      <h3>Zero Hidden Charges</h3>
+      <p>Complete pricing transparency. What you see is what you pay. No surprise fees at any step.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">02</div>
+      <h3>Direct WhatsApp Booking</h3>
+      <p>Skip the phone queues. Chat directly on WhatsApp, share requirements, and confirm bookings instantly.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">03</div>
+      <h3>Verified Properties Only</h3>
+      <p>Every listing is personally verified by our team. Legal clearance checked before listing.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">04</div>
+      <h3>8+ Years in Pune Market</h3>
+      <p>Deep local knowledge of every Pune micro-market — from Hinjewadi to Kothrud to Baner.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="booking-form-section" id="booking">
+  <div class="section-label">Book a Visit</div>
+  <h2 class="section-title">Connect with Us &<br>Schedule a Site Visit</h2>
+  <div class="form-grid">
+    <div class="form-info reveal-left">
+      <h3>NestVista Realty</h3>
+      <p>Pune's trusted real estate partner. Fill the form or directly WhatsApp us for fastest response. We respond within 15 minutes during business hours.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <strong>Office Address</strong>
+            <span>Office No. 302, Panchshil Business Park, Baner Road, Pune - 411045</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <strong>WhatsApp / Call</strong>
+            <span>+91 99230 54425</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <div>
+            <strong>Working Hours</strong>
+            <span>Mon – Sat: 9:00 AM to 8:00 PM</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <strong>Service Areas</strong>
+            <span>Baner, Wakad, Hinjewadi, Kothrud, Aundh, Viman Nagar, Kharadi, Undri, Hadapsar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form reveal">
+      <div class="form-title">Book a Site Visit</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="fname" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Property Type Required</label>
+        <select id="ftype">
+          <option value="">Select Property Type</option>
+          <option>1 BHK Flat</option>
+          <option>2 BHK Flat</option>
+          <option>3 BHK Flat</option>
+          <option>4 BHK / Luxury Flat</option>
+          <option>Studio Apartment</option>
+          <option>Villa / Bungalow</option>
+          <option>Row House</option>
+          <option>Penthouse</option>
+          <option>Plot / Land</option>
+          <option>Commercial Office</option>
+          <option>Commercial Shop</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Budget (₹)</label>
+          <select id="fbudget">
+            <option value="">Select Budget</option>
+            <option>Under ₹30 Lakh</option>
+            <option>₹30L – ₹50L</option>
+            <option>₹50L – ₹80L</option>
+            <option>₹80L – ₹1.2 Cr</option>
+            <option>₹1.2 Cr – ₹2 Cr</option>
+            <option>Above ₹2 Cr</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Location</label>
+          <select id="flocation">
+            <option value="">Select Area</option>
+            <option>Baner</option>
+            <option>Wakad</option>
+            <option>Hinjewadi</option>
+            <option>Kothrud</option>
+            <option>Aundh</option>
+            <option>Viman Nagar</option>
+            <option>Kharadi</option>
+            <option>Undri</option>
+            <option>Hadapsar</option>
+            <option>Pimpri-Chinchwad</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Message (Optional)</label>
+        <textarea id="fmessage" placeholder="Any specific requirements, preferred floor, facing, etc."></textarea>
+      </div>
+      <div class="form-submit-group">
+        <button class="btn-submit-form" onclick="submitForm()">Send Enquiry</button>
+        <button class="btn-whatsapp-form" onclick="submitFormWA()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Continue on WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-text">
+          <span class="logo-name">NestVista Realty</span>
+          <span class="logo-tagline">Premium Properties · Pune</span>
+        </div>
+      </div>
+      <p class="footer-desc">Pune's trusted real estate partner since 2016. We help you find homes that match your lifestyle and budget — transparently and quickly.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com" target="_blank" class="social-icon">📸</a>
+        <a href="https://wa.me/919923054425" target="_blank" class="social-icon">💬</a>
+        <a href="https://facebook.com" target="_blank" class="social-icon">👍</a>
+        <a href="https://youtube.com" target="_blank" class="social-icon">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <ul>
+        <li><a href="#">1 BHK Flats</a></li>
+        <li><a href="#">2 BHK Flats</a></li>
+        <li><a href="#">3 BHK Flats</a></li>
+        <li><a href="#">Villas & Bungalows</a></li>
+        <li><a href="#">Penthouses</a></li>
+        <li><a href="#">Commercial Spaces</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Locations</h4>
+      <ul>
+        <li><a href="#">Baner</a></li>
+        <li><a href="#">Wakad</a></li>
+        <li><a href="#">Hinjewadi</a></li>
+        <li><a href="#">Kothrud</a></li>
+        <li><a href="#">Viman Nagar</a></li>
+        <li><a href="#">Kharadi</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">EMI Calculator</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="https://wa.me/919923054425" target="_blank">WhatsApp Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 NestVista Realty. All rights reserved. | Pune, Maharashtra</p>
+    <p class="footer-copy">📱 +91 99230 54425</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="propModal">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-gallery">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-gallery-label" id="modalBadge"></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div id="modalType" style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--emerald);font-weight:600;margin-bottom:6px;"></div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div style="font-size:0.85rem;color:var(--slate);margin-top:6px;" id="modalLoc"></div>
+        </div>
+        <div class="modal-price" id="modalPrice"></div>
+      </div>
+      <div class="modal-details-grid" id="modalDetails"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-amenities" id="modalAmenities"></div>
+      <div class="modal-actions">
+        <a id="modalWABtn" href="#" target="_blank" class="btn-whatsapp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book via WhatsApp
+        </a>
+        <button class="btn-call-back" onclick="closeModal(); document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Schedule Site Visit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CURSOR =====
+const ring = document.getElementById('cursorRing');
+const dot = document.getElementById('cursorDot');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
+});
+
+function animateCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, .prop-card, .type-card, .filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+});
+
+// ===== HAMBURGER =====
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+// ===== HEADER SCROLL =====
+window.addEventListener('scroll', () => {
+  const h = document.getElementById('mainHeader');
+  h.style.boxShadow = window.scrollY > 50 ? '0 4px 30px rgba(10,22,40,0.4)' : 'none';
+});
+
+// ===== PROPERTY DATA =====
+const props = [
+  { id: 1, type: '2bhk', name: 'Serene Skyline 2BHK', loc: 'Baner, Pune', price: '₹68 Lakh', beds: 2, baths: 2, area: '980 sq.ft', badge: 'New Launch', premium: false, img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80', desc: 'Beautiful 2BHK apartment with balcony views, modular kitchen, and premium flooring. Society with clubhouse, gym, and children\'s play area.', amenities: ['Modular Kitchen','Club House','24/7 Security','Power Backup','Gym','Parking'], floor: '5th Floor', facing: 'East', age: 'Under Construction' },
+  { id: 2, type: '3bhk', name: 'Emerald Heights 3BHK', loc: 'Wakad, Pune', price: '₹95 Lakh', beds: 3, baths: 2, area: '1320 sq.ft', badge: 'Premium', premium: true, img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80', desc: 'Spacious 3BHK in a premium gated society. Vastu-compliant layout, designer bathroom, and panoramic views. Close to Hinjewadi IT Park.', amenities: ['Swimming Pool','Club House','Gymnasium','Landscaped Gardens','CCTV','Visitor Parking'], floor: '8th Floor', facing: 'West', age: 'Ready to Move' },
+  { id: 3, type: 'villa', name: 'Oakwood Villa', loc: 'Kothrud, Pune', price: '₹2.4 Cr', beds: 4, baths: 3, area: '2800 sq.ft', badge: 'Luxury', premium: true, img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80', desc: 'Exclusive independent villa with private garden, terrace, and 2-car parking. Double-height ceiling in living room. Premium Italian marble flooring.', amenities: ['Private Garden','Terrace','2 Car Park','Home Theater Prep','Solar Water Heater','Servant Room'], floor: 'G+2', facing: 'North', age: 'Ready to Move' },
+  { id: 4, type: '1bhk', name: 'Urban Studio 1BHK', loc: 'Viman Nagar, Pune', price: '₹38 Lakh', beds: 1, baths: 1, area: '560 sq.ft', badge: 'Great Deal', premium: false, img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80', desc: 'Smart compact 1BHK near Airport road. Ideal for working professionals. Fully furnished option available. Excellent rental yield of 4.5%.', amenities: ['Lift','Security','Power Backup','Gym','WiFi Ready','Co-working Lounge'], floor: '3rd Floor', facing: 'South', age: 'Ready to Move' },
+  { id: 5, type: 'penthouse', name: 'Sky Nest Penthouse', loc: 'Aundh, Pune', price: '₹3.8 Cr', beds: 5, baths: 4, area: '4200 sq.ft', badge: 'Exclusive', premium: true, img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80', desc: 'Ultra-luxury penthouse spanning entire top floor. Private terrace pool, home automation, and breathtaking city views. Once-in-a-lifetime opportunity.', amenities: ['Terrace Pool','Home Automation','360° Views','Private Elevator','Butler Service Prep','Premium Fittings'], floor: '22nd Floor', facing: 'All Sides', age: 'Ready to Move' },
+  { id: 6, type: '2bhk', name: 'Greenview Residency 2BHK', loc: 'Hinjewadi, Pune', price: '₹72 Lakh', beds: 2, baths: 2, area: '1050 sq.ft', badge: 'New', premium: false, img: 'https://images.unsplash.com/photo-1567684014761-b65e2e59b9eb?w=600&q=80', desc: 'Modern 2BHK with green belt views. 5 min from Phase 1 IT Park. Gated community with amenities. Easy home loan available.', amenities: ['Jogging Track','Kids Pool','Grocery Store','Yoga Deck','EV Charging','24hr Security'], floor: '4th Floor', facing: 'North', age: 'Under Construction' },
+  { id: 7, type: 'plot', name: 'NA Plot - Residential', loc: 'Undri, Pune', price: '₹55 Lakh', beds: 0, baths: 0, area: '2000 sq.ft', badge: 'NA Approved', premium: false, img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80', desc: 'PMRDA approved residential plot in a developing layout. Corner plot with road on 2 sides. All utilities at plot boundary. Ideal for custom villa construction.', amenities: ['NA Approved','PMRDA Sanctioned','Electricity At Boundary','Water Connection','Corner Plot','24 Meter Road'], floor: 'Ground', facing: 'East & North', age: 'Immediate Possession' },
+  { id: 8, type: 'commercial', name: 'Biz Hub Commercial Office', loc: 'Kharadi, Pune', price: '₹1.2 Cr', beds: 0, baths: 2, area: '1400 sq.ft', badge: 'Commercial', premium: false, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80', desc: 'Premium commercial office space in Kharadi IT zone. Open plan with 8 cabins. 2 dedicated parking slots. 100% power backup. Ideal for IT/consulting firms.', amenities: ['8 Cabins','2 Parking','Server Room','100% Power Backup','Central AC','Lobby Reception'], floor: '9th Floor', facing: 'West', age: 'Ready to Move' },
+];
+
+const tableData = [
+  { name: 'Serene Skyline 2BHK – Baner', type: '2 BHK', loc: 'Baner', size: '980 sq.ft', price: '₹68 Lakh', status: 'available', id: 1 },
+  { name: 'Emerald Heights 3BHK – Wakad', type: '3 BHK', loc: 'Wakad', size: '1320 sq.ft', price: '₹95 Lakh', status: 'booked', id: 2 },
+  { name: 'Oakwood Villa – Kothrud', type: 'Villa', loc: 'Kothrud', size: '2800 sq.ft', price: '₹2.4 Cr', status: 'reserved', id: 3 },
+  { name: 'Urban Studio 1BHK – Viman Nagar', type: '1 BHK', loc: 'Viman Nagar', size: '560 sq.ft', price: '₹38 Lakh', status: 'available', id: 4 },
+  { name: 'Sky Nest Penthouse – Aundh', type: 'Penthouse', loc: 'Aundh', size: '4200 sq.ft', price: '₹3.8 Cr', status: 'available', id: 5 },
+  { name: 'Greenview Residency 2BHK – Hinjewadi', type: '2 BHK', loc: 'Hinjewadi', size: '1050 sq.ft', price: '₹72 Lakh', status: 'available', id: 6 },
+  { name: 'NA Residential Plot – Undri', type: 'Plot', loc: 'Undri', size: '2000 sq.ft', price: '₹55 Lakh', status: 'reserved', id: 7 },
+  { name: 'Biz Hub Office – Kharadi', type: 'Commercial', loc: 'Kharadi', size: '1400 sq.ft', price: '₹1.2 Cr', status: 'available', id: 8 },
+];
+
+// ===== RENDER PROPERTIES =====
+let currentFilter = 'all';
+
+function renderProps(filter) {
+  const row = document.getElementById('propertiesRow');
+  const filtered = filter === 'all' ? props : props.filter(p => p.type === filter);
+  row.innerHTML = filtered.map(p => `
+    <div class="prop-card" onclick="openModal(${p.id})">
+      <div class="prop-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <div class="prop-badge ${p.premium ? 'premium' : ''}">${p.badge}</div>
+        <div class="prop-fav">❤️</div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-type">${p.type.toUpperCase()}</div>
+        <div class="prop-name">${p.name}</div>
+        <div class="prop-loc">📍 ${p.loc}</div>
+        <div class="prop-features">
+          ${p.beds > 0 ? `<div class="prop-feat"><span class="feat-icon">🛏</span><span class="feat-val">${p.beds}</span><span class="feat-label">Beds</span></div>` : ''}
+          ${p.baths > 0 ? `<div class="prop-feat"><span class="feat-icon">🚿</span><span class="feat-val">${p.baths}</span><span class="feat-label">Baths</span></div>` : ''}
+          <div class="prop-feat"><span class="feat-icon">📐</span><span class="feat-val">${p.area.split(' ')[0]}</span><span class="feat-label">sq.ft</span></div>
+        </div>
+        <div class="prop-footer">
+          <div class="prop-price">${p.price} <span>onwards</span></div>
+          <button class="btn-book">View Details</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProps(type, btn) {
+  currentFilter = type;
+  renderProps(type);
+  if (btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  // scroll into properties
+  if (window.innerWidth > 768) {
+    document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// ===== RENDER TABLE =====
+function renderTable() {
+  const tbody = document.getElementById('bookingTableBody');
+  tbody.innerHTML = tableData.map(r => `
+    <tr>
+      <td>${r.name}</td>
+      <td>${r.type}</td>
+      <td>${r.loc}</td>
+      <td>${r.size}</td>
+      <td><strong>${r.price}</strong></td>
+      <td><span class="status-badge status-${r.status}">${r.status.charAt(0).toUpperCase()+r.status.slice(1)}</span></td>
+      <td>${r.status === 'available' 
+        ? `<a href="https://wa.me/919923054425?text=Hello%20NestVista%20Realty%2C%20I%20want%20to%20book%20*${encodeURIComponent(r.name)}*%20(${r.type}%2C%20${r.loc}%2C%20${r.price}).%20Please%20guide%20me." target="_blank" class="table-book-btn">Book Now</a>` 
+        : `<span class="table-book-btn disabled">${r.status === 'booked' ? 'Booked' : 'Reserved'}</span>`
+      }</td>
+    </tr>
+  `).join('');
+}
+
+// ===== MODAL =====
+function openModal(id) {
+  const p = props.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalBadge').textContent = p.badge;
+  document.getElementById('modalType').textContent = p.type.toUpperCase() + ' · ' + p.facing + ' Facing';
+  document.getElementById('modalTitle').textContent = p.name;
+  document.getElementById('modalLoc').textContent = '📍 ' + p.loc;
+  document.getElementById('modalPrice').textContent = p.price;
+  document.getElementById('modalDesc').textContent = p.desc;
+
+  const details = [
+    p.beds > 0 ? `<div class="modal-detail"><span class="detail-val">${p.beds}</span><span class="detail-label">Bedrooms</span></div>` : '',
+    p.baths > 0 ? `<div class="modal-detail"><span class="detail-val">${p.baths}</span><span class="detail-label">Bathrooms</span></div>` : '',
+    `<div class="modal-detail"><span class="detail-val">${p.area}</span><span class="detail-label">Carpet Area</span></div>`,
+    `<div class="modal-detail"><span class="detail-val">${p.floor}</span><span class="detail-label">Floor</span></div>`,
+    `<div class="modal-detail"><span class="detail-val">${p.age}</span><span class="detail-label">Possession</span></div>`,
+  ];
+  document.getElementById('modalDetails').innerHTML = details.join('');
+  document.getElementById('modalAmenities').innerHTML = p.amenities.map(a => `<span class="amenity-tag">✓ ${a}</span>`).join('');
+
+  const msg = `Hello NestVista Realty, I am interested in *${p.name}* (${p.type.toUpperCase()}, ${p.loc}, ${p.price}). Please share more details and available slots for site visit.`;
+  document.getElementById('modalWABtn').href = `https://wa.me/919923054425?text=${encodeURIComponent(msg)}`;
+
+  document.getElementById('propModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('propModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('propModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('propModal')) closeModal();
+});
+
+// ===== FORM =====
+function submitForm() {
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const type = document.getElementById('ftype').value;
+  const budget = document.getElementById('fbudget').value;
+  const loc = document.getElementById('flocation').value;
+  const msg = document.getElementById('fmessage').value.trim();
+
+  if (!name || !phone) {
+    alert('Please enter your name and phone number.');
+    return;
+  }
+  const waMsg = `Hello NestVista Realty! 👋\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Property Type:* ${type || 'Not specified'}\n*Budget:* ${budget || 'Not specified'}\n*Preferred Area:* ${loc || 'Not specified'}\n*Message:* ${msg || 'N/A'}\n\nPlease help me find the right property.`;
+  window.open(`https://wa.me/919923054425?text=${encodeURIComponent(waMsg)}`, '_blank');
+}
+
+function submitFormWA() {
+  submitForm();
+}
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+
+// ===== COUNTER ANIMATION =====
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.count);
+  const duration = 2000;
+  const step = target / (duration / 16);
+  let current = 0;
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      el.textContent = target + '+';
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current) + '+';
+    }
+  }, 16);
+}
+
+// ===== INIT =====
+renderProps('all');
+renderTable();
+</script>
+</body>
+</html>
