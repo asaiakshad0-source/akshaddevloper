@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vidya Jyoti Coaching Classes | Excellence in Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --deep-navy: #0D1B2A;
+    --navy: #1A2E4A;
+    --navy-mid: #1E3A5F;
+    --cream: #FAF6EE;
+    --white: #FFFFFF;
+    --accent: #E8C96D;
+    --text-dark: #1A1A2E;
+    --text-mid: #3A4A5C;
+    --shadow: 0 20px 60px rgba(0,0,0,0.15);
+    --glass: rgba(255,255,255,0.07);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(13,27,42,0.97);
+    backdrop-filter: blur(20px);
+    padding: 14px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .logo-wrap {
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .logo-icon {
+    width: 52px; height: 52px;
+    animation: logoSpin 6s linear infinite;
+  }
+
+  @keyframes logoSpin {
+    0%,100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.08); }
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+
+  .logo-text span { color: var(--white); font-size: 0.7rem; display: block; letter-spacing: 3px; text-transform: uppercase; }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep-navy) !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--deep-navy) 0%, var(--navy-mid) 50%, #1a3060 100%);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 100px 5% 60px;
+  }
+
+  .hero-particles {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+  }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    max-width: 1300px; margin: 0 auto;
+    position: relative; z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    padding: 8px 18px; border-radius: 50px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeSlideUp 0.8s ease forwards;
+  }
+
+  .hero-badge::before {
+    content: '✦'; font-size: 0.7rem;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    animation: fadeSlideUp 0.8s 0.2s ease both;
+  }
+
+  .hero-title .highlight {
+    color: var(--gold);
+    position: relative;
+  }
+
+  .hero-title .highlight::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    border-radius: 2px;
+  }
+
+  .hero-subtitle {
+    color: rgba(255,255,255,0.7);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    animation: fadeSlideUp 0.8s 0.4s ease both;
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px;
+    margin-bottom: 40px;
+    animation: fadeSlideUp 0.8s 0.5s ease both;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeSlideUp 0.8s 0.6s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep-navy);
+    padding: 15px 36px;
+    border-radius: 50px;
+    font-weight: 700; font-size: 0.92rem;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 30px rgba(201,168,76,0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(201,168,76,0.5);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 15px 36px;
+    border-radius: 50px;
+    font-weight: 600; font-size: 0.92rem;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  /* Hero Right - Teacher Card */
+  .hero-teacher-card {
+    position: relative;
+    animation: fadeSlideUp 0.8s 0.3s ease both;
+  }
+
+  .teacher-img-wrap {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 500px;
+    background: linear-gradient(135deg, var(--navy-mid), var(--deep-navy));
+  }
+
+  .teacher-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    animation: imgFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes imgFloat {
+    0%,100% { transform: scale(1.02) translateY(0); }
+    50% { transform: scale(1.05) translateY(-8px); }
+  }
+
+  .teacher-img-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.85) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .teacher-overlay-badge {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    z-index: 2;
+    padding: 28px;
+    text-align: center;
+  }
+
+  .founder-name-anim {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%,100% { text-shadow: 0 0 10px rgba(201,168,76,0.5); }
+    50% { text-shadow: 0 0 30px rgba(201,168,76,0.9), 0 0 60px rgba(201,168,76,0.4); }
+  }
+
+  .founder-title {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .floating-badge {
+    position: absolute;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep-navy);
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: badgeFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes badgeFloat {
+    0%,100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+  }
+
+  .fb-top { top: 20px; right: -20px; }
+  .fb-left { bottom: 120px; left: -20px; animation-delay: -2s; }
+
+  .gold-ring {
+    position: absolute;
+    border: 2px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+    animation: ringExpand 4s ease-out infinite;
+  }
+
+  @keyframes ringExpand {
+    0% { opacity: 0.8; transform: scale(0.8); }
+    100% { opacity: 0; transform: scale(1.4); }
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--deep-navy);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section-title.light { color: var(--white); }
+
+  .section-desc {
+    color: var(--text-mid);
+    font-size: 1rem;
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .section-divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+
+  /* ===== CLASSES SECTION ===== */
+  #classes {
+    padding: 100px 5%;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #classes::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .classes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .class-card {
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .class-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    border-color: var(--gold);
+  }
+
+  .class-card-header {
+    background: linear-gradient(135deg, var(--deep-navy), var(--navy-mid));
+    padding: 32px 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .class-card-header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(201,168,76,0.1);
+    border-radius: 50%;
+  }
+
+  .class-badge {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--gold);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .class-name {
+    color: var(--white);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .class-card-body {
+    padding: 28px;
+  }
+
+  .subject-list {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+
+  .subject-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    transition: color 0.3s;
+  }
+
+  .subject-item:hover { color: var(--gold); }
+
+  .subject-item:last-child { border-bottom: none; }
+
+  .subject-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .class-features {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .feature-tag {
+    background: rgba(201,168,76,0.1);
+    color: #9B7A1E;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .class-book-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--deep-navy), var(--navy-mid));
+    color: var(--white);
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .class-book-btn:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep-navy);
+    transform: scale(1.02);
+  }
+
+  /* ===== TOPPERS SECTION ===== */
+  #toppers {
+    padding: 100px 5%;
+    background: var(--deep-navy);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #toppers::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .year-tabs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+
+  .year-tab {
+    padding: 10px 28px;
+    border-radius: 50px;
+    border: 2px solid rgba(201,168,76,0.3);
+    color: rgba(255,255,255,0.5);
+    background: transparent;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+  }
+
+  .year-tab.active,
+  .year-tab:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep-navy);
+    border-color: transparent;
+    transform: scale(1.05);
+  }
+
+  .toppers-content { display: none; }
+  .toppers-content.active { display: block; }
+
+  .topper-year-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 36px;
+    letter-spacing: 2px;
+  }
+
+  .toppers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .topper-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .topper-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .topper-card:hover::before { transform: scaleX(1); }
+
+  .topper-card:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: var(--gold);
+    transform: translateY(-8px);
+  }
+
+  .rank-badge {
+    position: absolute; top: 16px; right: 16px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 800;
+  }
+
+  .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #5B3F00; }
+  .rank-2 { background: linear-gradient(135deg, #C0C0C0, #A8A8A8); color: #333; }
+  .rank-3 { background: linear-gradient(135deg, #CD7F32, #A0522D); color: #fff; }
+
+  .topper-img-wrap {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    border: 3px solid var(--gold);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .topper-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .topper-crown {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    font-size: 1.3rem;
+  }
+
+  .topper-name {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .topper-class {
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .topper-score {
+    margin-top: 12px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 8px;
+    padding: 8px;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+
+  .topper-score span { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 400; }
+
+  /* ===== APPOINTMENT SECTION ===== */
+  #appointment {
+    padding: 100px 5%;
+    background: linear-gradient(135deg, #f8f3e8 0%, #fefcf5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .appointment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px; align-items: start;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .appointment-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--deep-navy);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .appointment-info p {
+    color: var(--text-mid);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .contact-cards {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  .contact-card {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid rgba(201,168,76,0.15);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .contact-card:hover {
+    border-color: var(--gold);
+    transform: translateX(6px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+
+  .contact-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .ci-wa { background: linear-gradient(135deg, #25D366, #128C7E); }
+  .ci-ph { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+
+  .contact-info-text strong {
+    display: block; color: var(--deep-navy);
+    font-size: 0.88rem; font-weight: 700;
+  }
+
+  .contact-info-text span {
+    color: var(--text-mid); font-size: 0.82rem;
+  }
+
+  /* Appointment Form */
+  .appointment-form-card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 44px 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--deep-navy);
+    margin-bottom: 6px;
+  }
+
+  .form-subtitle {
+    color: var(--text-mid);
+    font-size: 0.85rem;
+    margin-bottom: 32px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 2px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    background: var(--cream);
+    transition: all 0.3s;
+    outline: none;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(201,168,76,0.1);
+  }
+
+  .form-group textarea { resize: none; height: 90px; }
+
+  .whatsapp-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: var(--white);
+    padding: 16px;
+    border-radius: 14px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(37,211,102,0.4);
+  }
+
+  /* ===== TEACHERS ===== */
+  #teachers {
+    padding: 100px 5%;
+    background: var(--deep-navy);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .teachers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .teacher-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s;
+    position: relative;
+  }
+
+  .teacher-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+
+  .teacher-img {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .teacher-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    transition: transform 0.6s ease;
+    filter: brightness(0.85);
+  }
+
+  .teacher-card:hover .teacher-img img {
+    transform: scale(1.08);
+    filter: brightness(1);
+  }
+
+  .teacher-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.7) 0%, transparent 60%);
+  }
+
+  .teacher-info {
+    padding: 24px;
+  }
+
+  .teacher-name {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .teacher-subject {
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .teacher-exp {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #060e17;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 40px 5%;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  footer strong { color: var(--gold); }
+
+  /* ===== BOOKING MODAL ===== */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 500px; width: 100%;
+    position: relative;
+    animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    font-size: 1.5rem; cursor: pointer;
+    color: var(--text-mid);
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--deep-navy); }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--deep-navy);
+    margin-bottom: 6px;
+  }
+
+  .modal-subtitle { color: var(--text-mid); font-size: 0.84rem; margin-bottom: 28px; }
+
+  /* ===== FLOATING WA BUTTON ===== */
+  .wa-float {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    z-index: 999;
+    text-decoration: none;
+    animation: waPulse 3s ease-in-out infinite;
+    transition: transform 0.3s;
+  }
+
+  .wa-float:hover { transform: scale(1.15); }
+
+  @keyframes waPulse {
+    0%,100% { box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
+    50% { box-shadow: 0 8px 60px rgba(37,211,102,0.8), 0 0 0 10px rgba(37,211,102,0.1); }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .hero-grid, .appointment-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-teacher-card { order: -1; }
+    .teacher-img-wrap { height: 340px; }
+    .classes-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .appointment-form-card { padding: 28px 24px; }
+  }
+
+  /* unique pattern overlay for hero */
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--gold) 0,
+      var(--gold) 1px,
+      transparent 0,
+      transparent 50%
+    );
+    background-size: 30px 30px;
+  }
+
+  /* animated counter */
+  .count-num {
+    display: inline-block;
+  }
+
+  /* success message */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .success-msg .check-icon {
+    font-size: 3rem;
+    animation: bounce 0.5s ease;
+  }
+
+  @keyframes bounce {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+
+  .success-msg h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--deep-navy);
+    font-size: 1.4rem;
+    margin: 12px 0 8px;
+  }
+
+  .success-msg p { color: var(--text-mid); font-size: 0.88rem; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/919923054425" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo-wrap">
+    <svg class="logo-icon" viewBox="0 0 52 52" fill="none">
+      <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="2"/>
+      <path d="M26 8 L30 20 L42 20 L33 28 L36 40 L26 33 L16 40 L19 28 L10 20 L22 20 Z" fill="#C9A84C" opacity="0.9"/>
+      <circle cx="26" cy="26" r="6" fill="none" stroke="#F0D080" stroke-width="1.5"/>
+    </svg>
+    <div class="logo-text">
+      Vidya Jyoti
+      <span>Coaching Classes</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#toppers">Toppers</a></li>
+    <li><a href="#teachers">Faculty</a></li>
+    <li><a href="#appointment" class="nav-cta">📅 Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-particles" id="particles"></div>
+
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">✦ Est. 2010 &nbsp;•&nbsp; Pune, Maharashtra</div>
+      <h1 class="hero-title">
+        Shape Your Child's<br>
+        <span class="highlight">Brilliant Future</span><br>
+        With Us
+      </h1>
+      <p class="hero-subtitle">
+        Expert coaching for Class 8, 9 & 10 — Mathematics, Science, and English. 
+        Results-driven teaching that transforms students into toppers.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num count-num" data-target="1500">0</div>
+          <div class="stat-label">Students</div>
+        </div>
+        <div class="stat" style="border-left:1px solid rgba(201,168,76,0.3); padding-left:32px;">
+          <div class="stat-num count-num" data-target="15">0</div>
+          <div class="stat-label">Years</div>
+        </div>
+        <div class="stat" style="border-left:1px solid rgba(201,168,76,0.3); padding-left:32px;">
+          <div class="stat-num count-num" data-target="98">0</div>
+          <div class="stat-label">% Pass Rate</div>
+        </div>
+      </div>
+
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="document.getElementById('bookingModal').classList.add('open')">
+          📅 Book Free Trial Class
+        </button>
+        <a class="btn-secondary" href="#classes">
+          📚 View Courses
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-teacher-card">
+      <div class="teacher-img-wrap" style="position:relative;">
+        <div class="gold-ring" style="width:550px;height:550px;top:-25px;left:-25px;animation-delay:0s;"></div>
+        <div class="gold-ring" style="width:550px;height:550px;top:-25px;left:-25px;animation-delay:2s;"></div>
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=700&fit=crop&crop=faces,top" alt="Founder" onerror="this.src='https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=600&h=700&fit=crop'">
+        <div class="teacher-overlay-badge">
+          <div class="founder-name-anim">Priya Sharma</div>
+          <div class="founder-title">Founder & Head Educator</div>
+        </div>
+      </div>
+
+      <div class="floating-badge fb-top">
+        🏆 100+ Board Toppers
+      </div>
+      <div class="floating-badge fb-left">
+        ⭐ 4.9/5 Parent Rating
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes">
+  <div class="section-header reveal">
+    <div class="section-tag">Our Programs</div>
+    <h2 class="section-title">Choose Your Class</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Structured curriculum for Class 8, 9 & 10 with expert faculty and proven results.</p>
+  </div>
+
+  <div class="classes-grid">
+    <!-- Class 8 -->
+    <div class="class-card reveal" style="transition-delay:0.1s">
+      <div class="class-card-header">
+        <div class="class-badge">8th</div>
+        <div class="class-name">Standard</div>
+      </div>
+      <div class="class-card-body">
+        <ul class="subject-list">
+          <li class="subject-item"><div class="subject-icon">📐</div> Mathematics</li>
+          <li class="subject-item"><div class="subject-icon">🔬</div> Science</li>
+          <li class="subject-item"><div class="subject-icon">📖</div> English</li>
+        </ul>
+        <div class="class-features">
+          <span class="feature-tag">Mon–Sat Batches</span>
+          <span class="feature-tag">Test Series</span>
+          <span class="feature-tag">Notes Provided</span>
+        </div>
+        <button class="class-book-btn" onclick="openBooking('Class 8')">
+          📅 Book a Seat
+        </button>
+      </div>
+    </div>
+
+    <!-- Class 9 -->
+    <div class="class-card reveal" style="transition-delay:0.2s">
+      <div class="class-card-header" style="background:linear-gradient(135deg,#1a2e5a,#2a4080);">
+        <div class="class-badge">9th</div>
+        <div class="class-name">Standard</div>
+      </div>
+      <div class="class-card-body">
+        <ul class="subject-list">
+          <li class="subject-item"><div class="subject-icon">📐</div> Mathematics</li>
+          <li class="subject-item"><div class="subject-icon">🔬</div> Science</li>
+          <li class="subject-item"><div class="subject-icon">📖</div> English</li>
+        </ul>
+        <div class="class-features">
+          <span class="feature-tag">Doubt Sessions</span>
+          <span class="feature-tag">Online Tests</span>
+          <span class="feature-tag">Report Cards</span>
+        </div>
+        <button class="class-book-btn" onclick="openBooking('Class 9')">
+          📅 Book a Seat
+        </button>
+      </div>
+    </div>
+
+    <!-- Class 10 -->
+    <div class="class-card reveal" style="transition-delay:0.3s">
+      <div class="class-card-header" style="background:linear-gradient(135deg,#2a1a0a,#5a3010);">
+        <div class="class-badge" style="color:#F0D080;">10th</div>
+        <div class="class-name">Board Exam Batch</div>
+      </div>
+      <div class="class-card-body">
+        <ul class="subject-list">
+          <li class="subject-item"><div class="subject-icon">📐</div> Mathematics</li>
+          <li class="subject-item"><div class="subject-icon">🔬</div> Science</li>
+          <li class="subject-item"><div class="subject-icon">📖</div> English</li>
+        </ul>
+        <div class="class-features">
+          <span class="feature-tag">Board Prep</span>
+          <span class="feature-tag">Mock Exams</span>
+          <span class="feature-tag">Extra Practice</span>
+          <span class="feature-tag">Special Batch</span>
+        </div>
+        <button class="class-book-btn" style="background:linear-gradient(135deg,#5a3010,#8B4513);" onclick="openBooking('Class 10')">
+          📅 Book a Seat
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPPERS SECTION -->
+<section id="toppers">
+  <div class="section-header reveal">
+    <div class="section-tag" style="color:var(--gold-light);">Hall of Fame</div>
+    <h2 class="section-title light">Our Star Toppers</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc" style="color:rgba(255,255,255,0.6);">Year after year, our students achieve exceptional board results.</p>
+  </div>
+
+  <!-- Year Tabs -->
+  <div class="year-tabs reveal">
+    <button class="year-tab active" onclick="showYear('2026')">2026</button>
+    <button class="year-tab" onclick="showYear('2025')">2025</button>
+    <button class="year-tab" onclick="showYear('2024')">2024</button>
+  </div>
+
+  <!-- 2026 Toppers -->
+  <div class="toppers-content active" id="toppers-2026">
+    <div class="topper-year-label">✦ Batch 2026 — Latest Results ✦</div>
+    <div class="toppers-grid">
+      <div class="topper-card reveal" style="transition-delay:0.05s">
+        <div class="topper-crown">👑</div>
+        <div class="rank-badge rank-1">1st</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Arjun+Mehta&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Arjun Mehta</div>
+        <div class="topper-class">Class 10 • Mathematics</div>
+        <div class="topper-score">98.4% <span>/ SSC Board</span></div>
+      </div>
+
+      <div class="topper-card reveal" style="transition-delay:0.1s">
+        <div class="rank-badge rank-1">1st</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Sneha+Patil&background=2A1A0A&color=F0D080&size=200'">
+        </div>
+        <div class="topper-name">Sneha Patil</div>
+        <div class="topper-class">Class 10 • Science</div>
+        <div class="topper-score">97.8% <span>/ SSC Board</span></div>
+      </div>
+
+      <div class="topper-card reveal" style="transition-delay:0.15s">
+        <div class="rank-badge rank-2">2nd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Rohit+Kumar&background=1A2E5A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Rohit Kumar</div>
+        <div class="topper-class">Class 9 • Mathematics</div>
+        <div class="topper-score">96% <span>/ School Exam</span></div>
+      </div>
+
+      <div class="topper-card reveal" style="transition-delay:0.2s">
+        <div class="rank-badge rank-2">2nd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Priya+Desai&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Priya Desai</div>
+        <div class="topper-class">Class 9 • English</div>
+        <div class="topper-score">95.5% <span>/ School Exam</span></div>
+      </div>
+
+      <div class="topper-card reveal" style="transition-delay:0.25s">
+        <div class="rank-badge rank-3">3rd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Vaibhav+More&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Vaibhav More</div>
+        <div class="topper-class">Class 8 • Mathematics</div>
+        <div class="topper-score">94.2% <span>/ School Exam</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2025 Toppers -->
+  <div class="toppers-content" id="toppers-2025">
+    <div class="topper-year-label">✦ Batch 2025 — Board Results ✦</div>
+    <div class="toppers-grid">
+      <div class="topper-card">
+        <div class="topper-crown">👑</div>
+        <div class="rank-badge rank-1">1st</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Ananya+Singh&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Ananya Singh</div>
+        <div class="topper-class">Class 10 • All Subjects</div>
+        <div class="topper-score">99.2% <span>/ SSC Board</span></div>
+      </div>
+      <div class="topper-card">
+        <div class="rank-badge rank-1">1st</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Aarav+Joshi&background=1A2E5A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Aarav Joshi</div>
+        <div class="topper-class">Class 10 • Science</div>
+        <div class="topper-score">98.6% <span>/ SSC Board</span></div>
+      </div>
+      <div class="topper-card">
+        <div class="rank-badge rank-2">2nd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Kavya+Nair&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Kavya Nair</div>
+        <div class="topper-class">Class 9 • Mathematics</div>
+        <div class="topper-score">97.1% <span>/ School Exam</span></div>
+      </div>
+      <div class="topper-card">
+        <div class="rank-badge rank-3">3rd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Dev+Shah&background=1A2E5A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Dev Shah</div>
+        <div class="topper-class">Class 8 • Science</div>
+        <div class="topper-score">95.8% <span>/ School Exam</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2024 Toppers -->
+  <div class="toppers-content" id="toppers-2024">
+    <div class="topper-year-label">✦ Batch 2024 — Board Results ✦</div>
+    <div class="toppers-grid">
+      <div class="topper-card">
+        <div class="topper-crown">👑</div>
+        <div class="rank-badge rank-1">1st</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Riya+Gupta&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Riya Gupta</div>
+        <div class="topper-class">Class 10 • Mathematics</div>
+        <div class="topper-score">98.8% <span>/ SSC Board</span></div>
+      </div>
+      <div class="topper-card">
+        <div class="rank-badge rank-2">2nd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Karan+Pawar&background=1A2E5A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Karan Pawar</div>
+        <div class="topper-class">Class 10 • Science</div>
+        <div class="topper-score">97.5% <span>/ SSC Board</span></div>
+      </div>
+      <div class="topper-card">
+        <div class="rank-badge rank-3">3rd</div>
+        <div class="topper-img-wrap">
+          <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=200&h=200&fit=crop&crop=faces" alt="Topper" onerror="this.src='https://ui-avatars.com/api/?name=Ishika+Verma&background=1A2E4A&color=C9A84C&size=200'">
+        </div>
+        <div class="topper-name">Ishika Verma</div>
+        <div class="topper-class">Class 9 • English</div>
+        <div class="topper-score">96.4% <span>/ School Exam</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHERS -->
+<section id="teachers">
+  <div class="section-header reveal">
+    <div class="section-tag" style="color:var(--gold-light);">Our Faculty</div>
+    <h2 class="section-title light">Expert Teaching Team</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc" style="color:rgba(255,255,255,0.55);">Experienced educators dedicated to your child's success.</p>
+  </div>
+
+  <div class="teachers-grid">
+    <div class="teacher-card reveal" style="transition-delay:0.05s">
+      <div class="teacher-img">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=320&fit=crop&crop=faces,top" alt="Teacher" onerror="this.src='https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=400&h=320&fit=crop'">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name">Priya Sharma</div>
+        <div class="teacher-subject">📐 Mathematics — 8, 9, 10</div>
+        <div class="teacher-exp">M.Sc. Mathematics, 12+ years experience. Specialises in board exam preparation and concept clarity.</div>
+      </div>
+    </div>
+
+    <div class="teacher-card reveal" style="transition-delay:0.1s">
+      <div class="teacher-img">
+        <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=400&h=320&fit=crop&crop=faces,top" alt="Teacher" onerror="this.src='https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=400&h=320&fit=crop'">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name">Meena Kulkarni</div>
+        <div class="teacher-subject">🔬 Science — 8, 9, 10</div>
+        <div class="teacher-exp">M.Sc. Physics & Chemistry. 9 years teaching experience with a practical, lab-based approach.</div>
+      </div>
+    </div>
+
+    <div class="teacher-card reveal" style="transition-delay:0.15s">
+      <div class="teacher-img">
+        <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=320&fit=crop&crop=faces,top" alt="Teacher" onerror="this.src='https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=400&h=320&fit=crop'">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name">Sunita Bhosle</div>
+        <div class="teacher-subject">📖 English — 8, 9, 10</div>
+        <div class="teacher-exp">MA English Literature, 10 years. Grammar, comprehension, and writing skills for board excellence.</div>
+      </div>
+    </div>
+
+    <div class="teacher-card reveal" style="transition-delay:0.2s">
+      <div class="teacher-img">
+        <img src="https://images.unsplash.com/photo-1628890920690-9e29d0019b9b?w=400&h=320&fit=crop&crop=faces,top" alt="Teacher" onerror="this.src='https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=400&h=320&fit=crop'">
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-name">Rajesh Thakur</div>
+        <div class="teacher-subject">📐 Mathematics — 9, 10</div>
+        <div class="teacher-exp">B.Tech + B.Ed. Advanced Mathematics specialist. Known for making complex topics simple and scoring.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPOINTMENT SECTION -->
+<section id="appointment">
+  <div class="appointment-grid">
+    <div class="appointment-info reveal-left">
+      <div class="section-tag">Get In Touch</div>
+      <h3>Book a Free<br>Appointment</h3>
+      <p>Visit us or message us to arrange a free counselling session. Our experts will guide you on the right batch, timing, and fees — absolutely free of charge.</p>
+
+      <div class="contact-cards">
+        <a class="contact-card" href="https://wa.me/919923054425?text=Hello%2C%20I%20want%20to%20book%20an%20appointment%20at%20Vidya%20Jyoti%20Coaching%20Classes" target="_blank">
+          <div class="contact-icon ci-wa">💬</div>
+          <div class="contact-info-text">
+            <strong>WhatsApp Us</strong>
+            <span>+91 9923054425 — Instant Reply</span>
+          </div>
+        </a>
+        <a class="contact-card" href="tel:+919923054425">
+          <div class="contact-icon ci-ph">📞</div>
+          <div class="contact-info-text">
+            <strong>Call Directly</strong>
+            <span>+91 9923054425 — Mon to Sat, 9am–7pm</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="appointment-form-card reveal-right">
+      <div id="form-section">
+        <div class="form-title">Request a Callback</div>
+        <div class="form-subtitle">Fill the form — we'll WhatsApp you within 30 minutes ✅</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student Name *</label>
+            <input type="text" id="studentName" placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label>Parent's Name *</label>
+            <input type="text" id="parentName" placeholder="Father / Mother Name">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="mobile" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div class="form-group">
+            <label>Select Class *</label>
+            <select id="classSelect">
+              <option value="">-- Choose Class --</option>
+              <option value="Class 8">Class 8</option>
+              <option value="Class 9">Class 9</option>
+              <option value="Class 10 (Board)">Class 10 (Board Batch)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Subject(s) of Interest</label>
+          <select id="subjectSelect">
+            <option value="">-- Select Subject --</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="English">English</option>
+            <option value="All Subjects">All Subjects (Full Package)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Time Slot</label>
+          <select id="timeSlot">
+            <option value="">-- Choose Slot --</option>
+            <option value="Morning (7am–9am)">Morning (7am–9am)</option>
+            <option value="Afternoon (1pm–3pm)">Afternoon (1pm–3pm)</option>
+            <option value="Evening (5pm–7pm)">Evening (5pm–7pm)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Message / Query</label>
+          <textarea id="message" placeholder="Any specific topic or query..."></textarea>
+        </div>
+
+        <button class="whatsapp-btn" onclick="sendWhatsApp()">
+          💬 Send via WhatsApp
+        </button>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        <div class="check-icon">✅</div>
+        <h3>Message Sent!</h3>
+        <p>Your inquiry has been sent on WhatsApp.<br>We'll respond within 30 minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="document.getElementById('bookingModal').classList.remove('open')">✕</span>
+    <div class="modal-title">Book Your Seat</div>
+    <div class="modal-subtitle">Register for a free trial class — No fees required ✨</div>
+
+    <div class="form-group">
+      <label>Student Name</label>
+      <input type="text" id="m_studentName" placeholder="Full Name">
+    </div>
+
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input type="tel" id="m_mobile" placeholder="+91 XXXXX XXXXX">
+    </div>
+
+    <div class="form-group">
+      <label>Class</label>
+      <select id="m_class">
+        <option value="">-- Select Class --</option>
+        <option value="Class 8">Class 8</option>
+        <option value="Class 9">Class 9</option>
+        <option value="Class 10 (Board)">Class 10 (Board Batch)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Subject</label>
+      <select id="m_subject">
+        <option value="">-- Select Subject --</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+        <option value="All Subjects">All Subjects</option>
+      </select>
+    </div>
+
+    <button class="whatsapp-btn" onclick="sendModalWhatsApp()">
+      💬 Confirm via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <strong>Vidya Jyoti Coaching Classes</strong> — All Rights Reserved<br>
+  📍 Pune, Maharashtra &nbsp;|&nbsp; 📞 <a href="tel:+919923054425" style="color:var(--gold);">+91 9923054425</a> &nbsp;|&nbsp; 
+  <a href="https://wa.me/919923054425" style="color:#25D366;">WhatsApp</a></p>
+</footer>
+
+<script>
+  // ===== PARTICLES =====
+  const container = document.getElementById('particles');
+  for(let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random()*100}%;
+      width: ${Math.random()*4+2}px;
+      height: ${Math.random()*4+2}px;
+      animation-duration: ${Math.random()*15+10}s;
+      animation-delay: ${Math.random()*10}s;
+    `;
+    container.appendChild(p);
+  }
+
+  // ===== SCROLL REVEAL =====
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if(e.isIntersecting) {
+        const delay = e.target.style.transitionDelay || '0s';
+        setTimeout(() => e.target.classList.add('visible'), parseFloat(delay)*1000);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ===== YEAR TABS =====
+  function showYear(year) {
+    document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.toppers-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('toppers-' + year).classList.add('active');
+  }
+
+  // ===== COUNTER ANIMATION =====
+  function animateCounters() {
+    document.querySelectorAll('.count-num').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      let current = 0;
+      const increment = target / 60;
+      const timer = setInterval(() => {
+        current += increment;
+        if(current >= target) { current = target; clearInterval(timer); }
+        el.textContent = Math.floor(current) + (el.dataset.target === '98' ? '' : '+');
+      }, 20);
+    });
+  }
+
+  const heroObserver = new IntersectionObserver((entries) => {
+    if(entries[0].isIntersecting) { animateCounters(); heroObserver.disconnect(); }
+  });
+  heroObserver.observe(document.getElementById('hero'));
+
+  // ===== OPEN BOOKING MODAL WITH CLASS PRE-SELECTED =====
+  function openBooking(cls) {
+    document.getElementById('m_class').value = cls;
+    document.getElementById('bookingModal').classList.add('open');
+  }
+
+  // ===== WHATSAPP SUBMIT (MAIN FORM) =====
+  function sendWhatsApp() {
+    const name = document.getElementById('studentName').value.trim();
+    const parent = document.getElementById('parentName').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const cls = document.getElementById('classSelect').value;
+    const sub = document.getElementById('subjectSelect').value;
+    const slot = document.getElementById('timeSlot').value;
+    const msg = document.getElementById('message').value.trim();
+
+    if(!name || !mobile) { alert('Please fill in Student Name and Mobile Number.'); return; }
+
+    const text = `Hello Vidya Jyoti Coaching Classes! 🎓\n\n` +
+      `*New Inquiry / Appointment Request*\n` +
+      `----------------------------------\n` +
+      `👨‍🎓 Student Name: ${name}\n` +
+      `👤 Parent Name: ${parent}\n` +
+      `📱 Mobile: ${mobile}\n` +
+      `📚 Class: ${cls || 'Not specified'}\n` +
+      `📖 Subject: ${sub || 'Not specified'}\n` +
+      `⏰ Preferred Slot: ${slot || 'Not specified'}\n` +
+      `💬 Message: ${msg || 'No message'}\n` +
+      `----------------------------------\n` +
+      `Please confirm my appointment. Thank you!`;
+
+    window.open(`https://wa.me/919923054425?text=${encodeURIComponent(text)}`, '_blank');
+
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  // ===== WHATSAPP SUBMIT (MODAL) =====
+  function sendModalWhatsApp() {
+    const name = document.getElementById('m_studentName').value.trim();
+    const mobile = document.getElementById('m_mobile').value.trim();
+    const cls = document.getElementById('m_class').value;
+    const sub = document.getElementById('m_subject').value;
+
+    if(!name || !mobile) { alert('Please fill in Name and Mobile Number.'); return; }
+
+    const text = `Hello! I want to book a *Free Trial Class* at Vidya Jyoti! 🎓\n\n` +
+      `👨‍🎓 Name: ${name}\n📱 Mobile: ${mobile}\n📚 Class: ${cls}\n📖 Subject: ${sub}\n\nPlease confirm!`;
+
+    window.open(`https://wa.me/919923054425?text=${encodeURIComponent(text)}`, '_blank');
+    document.getElementById('bookingModal').classList.remove('open');
+  }
+
+  // Close modal on overlay click
+  document.getElementById('bookingModal').addEventListener('click', function(e) {
+    if(e.target === this) this.classList.remove('open');
+  });
+</script>
+</body>
+</html>
