@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royal Dine & Stay — Restaurant & Rooms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8cc7a;
+      --dark: #0d0a05;
+      --dark2: #1a1408;
+      --dark3: #251c0c;
+      --cream: #f5edd8;
+      --cream2: #ede0c4;
+      --text: #c8b98a;
+      --white: #fdf8ef;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(13,10,5,0.98), transparent);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      text-decoration: none;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .logo-svg { width: 52px; height: 52px; flex-shrink: 0; }
+    .logo-ring-outer { transform-origin: 50% 50%; animation: logoSpin 12s linear infinite; }
+    .logo-ring-inner { transform-origin: 50% 50%; animation: logoSpin 8s linear infinite reverse; }
+    .logo-crown { animation: crownShimmer 3s ease-in-out infinite; }
+    .logo-dot { transform-origin: 50% 50%; animation: dotPulse 2s ease-in-out infinite; }
+    .logo-dot:nth-child(2) { animation-delay: .3s; }
+    .logo-dot:nth-child(3) { animation-delay: .6s; }
+    .logo-dot:nth-child(4) { animation-delay: .9s; }
+    @keyframes logoSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes crownShimmer {
+      0%,100% { filter: drop-shadow(0 0 3px rgba(201,168,76,.5)); }
+      50% { filter: drop-shadow(0 0 12px rgba(232,204,122,1)); }
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity: .4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.6); }
+    }
+    .logo-text-wrap { display: flex; flex-direction: column; line-height: 1.15; }
+    .logo-name {
+      font-family: 'Cinzel', serif; font-size: 1.05rem;
+      color: var(--gold); letter-spacing: 3px;
+      animation: logoFadeIn 1s ease both;
+    }
+    .logo-tagline {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.62rem;
+      color: var(--text); letter-spacing: 4px; text-transform: uppercase;
+      animation: logoFadeIn 1.4s ease both;
+    }
+    @keyframes logoFadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--cream2); text-decoration: none;
+      font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--dark);
+      padding: 10px 24px; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: background .3s;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--gold); display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(13,10,5,0.85) 0%, rgba(13,10,5,0.5) 50%, rgba(13,10,5,0.85) 100%),
+        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-decor {
+      position: absolute; border: 1px solid rgba(201,168,76,0.3);
+      width: 60%; height: 70%; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .hero-decor::before, .hero-decor::after {
+      content: ''; position: absolute;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .hero-decor::before { inset: -12px; }
+    .hero-decor::after { inset: 12px; }
+    .hero-content {
+      position: relative; text-align: center;
+      animation: fadeUp .9s ease both;
+    }
+    .hero-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem; letter-spacing: 6px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 20px;
+      opacity: .8;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem,8vw,6.5rem);
+      line-height: 1.05; color: var(--white);
+      margin-bottom: 20px;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--cream2);
+      letter-spacing: 1px; margin-bottom: 40px;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .hero-btns { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+    .btn-gold {
+      background: var(--gold); color: var(--dark);
+      padding: 15px 38px; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.8rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: all .3s; text-decoration: none; display: inline-block;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--gold);
+      padding: 15px 38px; border: 1px solid var(--gold); cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.8rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: all .3s; text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+    .scroll-hint {
+      position: absolute; bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--gold); opacity: .6; font-size: 0.7rem; letter-spacing: 3px;
+      text-transform: uppercase; animation: pulse 2s infinite;
+    }
+    .scroll-hint::after {
+      content: ''; width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 48px; }
+    .section-header { text-align: center; margin-bottom: 70px; }
+    .section-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem; letter-spacing: 5px;
+      color: var(--gold); text-transform: uppercase;
+      margin-bottom: 14px; display: block;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--white); line-height: 1.2;
+    }
+    .section-title em { color: var(--gold); font-style: italic; }
+    .divider {
+      width: 80px; height: 1px; background: var(--gold);
+      margin: 20px auto; opacity: .5;
+    }
+    .section-desc {
+      font-size: 1.05rem; color: var(--text);
+      max-width: 560px; margin: 0 auto; line-height: 1.8;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--dark2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover;
+      filter: sepia(10%) brightness(0.9);
+    }
+    .about-img-accent {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 55%; aspect-ratio: 1/1; object-fit: cover;
+      border: 4px solid var(--dark2); filter: sepia(15%) brightness(.85);
+    }
+    .about-badge {
+      position: absolute; top: 24px; left: -24px;
+      background: var(--gold); color: var(--dark);
+      padding: 20px; text-align: center;
+      font-family: 'Cinzel', serif;
+    }
+    .about-badge strong { display: block; font-size: 2rem; line-height: 1; }
+    .about-badge span { font-size: 0.6rem; letter-spacing: 2px; }
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; color: var(--white); margin-bottom: 20px; line-height: 1.2;
+    }
+    .about-text p { color: var(--text); line-height: 1.9; margin-bottom: 18px; font-size: 1.05rem; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 30px; margin-top: 40px; border-top: 1px solid rgba(201,168,76,0.2);
+      padding-top: 30px;
+    }
+    .stat strong { display: block; font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--gold); }
+    .stat span { font-size: 0.8rem; letter-spacing: 1px; color: var(--text); }
+
+    /* ── PROGRAMS ── */
+    .programs { background: var(--dark); }
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px; max-width: 1200px; margin: 0 auto;
+    }
+    .program-card {
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.15);
+      overflow: hidden; transition: transform .3s, border-color .3s;
+      cursor: pointer;
+    }
+    .program-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.5); }
+    .program-img { width: 100%; height: 200px; object-fit: cover; filter: brightness(.8); }
+    .program-body { padding: 28px; }
+    .program-icon { font-size: 2rem; margin-bottom: 12px; }
+    .program-name {
+      font-family: 'Cinzel', serif; font-size: 1rem;
+      letter-spacing: 2px; color: var(--gold); margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .program-desc { color: var(--text); font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px; }
+    .program-tag {
+      display: inline-block; background: rgba(201,168,76,0.12);
+      color: var(--gold); font-size: 0.7rem; letter-spacing: 2px;
+      padding: 5px 14px; text-transform: uppercase;
+    }
+
+    /* ── MENU ── */
+    .menu-section { background: var(--dark2); }
+    .menu-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 50px; flex-wrap: wrap; }
+    .menu-tab {
+      padding: 12px 32px; border: 1px solid rgba(201,168,76,0.3);
+      background: transparent; color: var(--text);
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 2px; cursor: pointer; transition: all .3s;
+    }
+    .menu-tab.active, .menu-tab:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+    .menu-grid {
+      display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .menu-grid.active { display: grid; }
+    .menu-item {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 22px; border-bottom: 1px solid rgba(201,168,76,0.1);
+      gap: 20px;
+    }
+    .menu-item-info h4 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.1rem; margin-bottom: 5px; }
+    .menu-item-info p { color: var(--text); font-size: 0.88rem; line-height: 1.6; }
+    .menu-item-price { color: var(--gold); font-family: 'Cinzel', serif; font-size: 1rem; white-space: nowrap; }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--dark); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: 250px 250px;
+      gap: 8px; max-width: 1200px; margin: 0 auto;
+    }
+    .gallery-item { overflow: hidden; position: relative; cursor: pointer; }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease, filter .5s ease;
+      filter: brightness(.8) sepia(10%);
+    }
+    .gallery-item:hover img { transform: scale(1.07); filter: brightness(.95); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: rgba(201,168,76,0); transition: .4s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-item:hover .gallery-overlay { background: rgba(201,168,76,0.08); }
+
+    /* ── ROOMS ── */
+    .rooms { background: var(--dark2); }
+    .rooms-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px; max-width: 1200px; margin: 0 auto;
+    }
+    .room-card {
+      background: var(--dark); border: 1px solid rgba(201,168,76,0.12);
+      overflow: hidden; transition: transform .3s, box-shadow .3s;
+    }
+    .room-card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    .room-img { width: 100%; height: 220px; object-fit: cover; filter: brightness(.85); }
+    .room-body { padding: 30px; }
+    .room-name {
+      font-family: 'Cinzel', serif; font-size: 1rem;
+      letter-spacing: 2px; color: var(--gold); margin-bottom: 10px;
+    }
+    .room-desc { color: var(--text); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px; }
+    .room-features {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
+    }
+    .room-feature {
+      background: rgba(201,168,76,0.1); color: var(--cream2);
+      font-size: 0.75rem; padding: 5px 12px; letter-spacing: 1px;
+    }
+    .room-price { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem; margin-bottom: 18px; }
+    .room-price span { font-size: 0.75rem; color: var(--text); letter-spacing: 1px; }
+    .btn-wa {
+      display: flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      padding: 12px 24px; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; transition: background .3s;
+      width: 100%; justify-content: center;
+    }
+    .btn-wa:hover { background: #1ebe5d; }
+    .btn-wa svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--dark); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px; max-width: 1100px; margin: 0 auto;
+    }
+    .service-card {
+      text-align: center; padding: 40px 24px;
+      border: 1px solid rgba(201,168,76,0.12);
+      transition: border-color .3s, background .3s;
+    }
+    .service-card:hover { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+    .service-icon { font-size: 2.5rem; margin-bottom: 18px; display: block; }
+    .service-name {
+      font-family: 'Cinzel', serif; font-size: 0.85rem;
+      letter-spacing: 2px; color: var(--gold);
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .service-desc { color: var(--text); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ── TABLE BOOKING ── */
+    .booking { background: var(--dark2); }
+    .booking-container {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+    }
+    .booking-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--white); margin-bottom: 20px; line-height: 1.2;
+    }
+    .booking-info p { color: var(--text); line-height: 1.8; margin-bottom: 24px; }
+    .booking-hours { margin-top: 20px; }
+    .booking-hours h4 {
+      font-family: 'Cinzel', serif; font-size: 0.8rem;
+      letter-spacing: 2px; color: var(--gold); margin-bottom: 14px;
+    }
+    .booking-hours li {
+      list-style: none; display: flex; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid rgba(201,168,76,0.1);
+      color: var(--text); font-size: 0.9rem;
+    }
+    .booking-hours li span { color: var(--cream2); }
+    .booking-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-family: 'Cinzel', serif; font-size: 0.7rem;
+      letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--cream);
+      padding: 13px 16px;
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      outline: none; transition: border-color .3s;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(200,185,138,0.4); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select option { background: var(--dark2); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .book-btn {
+      background: var(--gold); color: var(--dark);
+      padding: 16px; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.85rem;
+      letter-spacing: 3px; text-transform: uppercase;
+      transition: background .3s, transform .2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .book-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .book-btn svg { width: 18px; height: 18px; fill: var(--dark); }
+
+    /* ── WHATSAPP SECTION ── */
+    .whatsapp-section { background: var(--dark3); }
+    .wa-container {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .wa-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; color: var(--white); margin-bottom: 20px; line-height: 1.3;
+    }
+    .wa-info p { color: var(--text); line-height: 1.8; margin-bottom: 30px; }
+    .wa-details { display: flex; flex-direction: column; gap: 18px; }
+    .wa-detail {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 18px; background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+    }
+    .wa-detail-icon { font-size: 1.5rem; }
+    .wa-detail-text strong {
+      display: block; color: var(--white); font-family: 'Cinzel', serif;
+      font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .wa-detail-text span { color: var(--text); font-size: 0.9rem; }
+    .wa-cards { display: flex; flex-direction: column; gap: 20px; }
+    .wa-card {
+      background: rgba(37,211,102,0.06);
+      border: 1px solid rgba(37,211,102,0.2);
+      padding: 24px; text-align: center;
+      transition: background .3s, border-color .3s;
+    }
+    .wa-card:hover { background: rgba(37,211,102,0.1); border-color: rgba(37,211,102,0.4); }
+    .wa-card-title {
+      font-family: 'Cinzel', serif; font-size: 0.85rem;
+      letter-spacing: 2px; color: #25D366; margin-bottom: 10px;
+    }
+    .wa-card p { color: var(--text); font-size: 0.9rem; margin-bottom: 18px; line-height: 1.6; }
+    .wa-card-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #25D366; color: #fff;
+      padding: 11px 24px; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 1px; text-decoration: none; transition: background .3s;
+    }
+    .wa-card-btn:hover { background: #1ebe5d; }
+    .wa-card-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--dark); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px; max-width: 1100px; margin: 0 auto;
+    }
+    .testimonial-card {
+      padding: 36px; border: 1px solid rgba(201,168,76,0.12);
+      background: var(--dark2); position: relative;
+    }
+    .testimonial-card::before {
+      content: '"'; position: absolute; top: 20px; left: 28px;
+      font-family: 'Playfair Display', serif; font-size: 5rem;
+      color: var(--gold); opacity: .2; line-height: 1;
+    }
+    .testimonial-text { color: var(--text); line-height: 1.8; margin-bottom: 24px; font-size: 1rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar {
+      width: 45px; height: 45px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--dark));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif; color: var(--dark); font-size: 1.1rem; font-weight: bold;
+    }
+    .author-info strong { display: block; color: var(--white); font-size: 0.95rem; }
+    .author-info span { color: var(--gold); font-size: 0.8rem; }
+    .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 14px; }
+
+    /* ── CONTACT / LOCATION ── */
+    .contact { background: var(--dark2); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; max-width: 1000px; margin: 0 auto;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.8rem;
+      color: var(--white); margin-bottom: 30px;
+    }
+    .contact-item { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
+    .contact-item-icon { font-size: 1.4rem; }
+    .contact-item-text strong { display: block; color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 4px; }
+    .contact-item-text span { color: var(--text); font-size: 0.95rem; line-height: 1.6; }
+    .map-placeholder {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.2);
+      height: 280px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px; color: var(--text); text-align: center;
+      padding: 30px;
+    }
+    .map-placeholder span { font-size: 3rem; }
+    .map-placeholder p { font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080604; padding: 60px 48px 30px;
+      border-top: 1px solid rgba(201,168,76,0.2);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 50px; max-width: 1200px; margin-left: auto; margin-right: auto;
+    }
+    .footer-brand h3 {
+      font-family: 'Cinzel', serif; font-size: 1.4rem;
+      color: var(--gold); letter-spacing: 3px; margin-bottom: 14px;
+    }
+    .footer-brand p { color: var(--text); font-size: 0.9rem; line-height: 1.8; margin-bottom: 20px; }
+    .footer-col h4 {
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { color: var(--text); text-decoration: none; font-size: 0.9rem; transition: color .3s; }
+    .footer-col ul li a:hover { color: var(--cream); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(201,168,76,0.1); padding-top: 24px;
+      color: var(--text); font-size: 0.82rem; flex-wrap: wrap; gap: 14px;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ── FLOATING WA BUTTON ── */
+    .float-wa {
+      position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+      background: #25D366; width: 60px; height: 60px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none; transition: transform .3s, box-shadow .3s;
+      animation: pulse-wa 2s ease infinite;
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+    .float-wa svg { width: 30px; height: 30px; fill: #fff; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: .6; }
+      50% { opacity: 1; }
+    }
+    @keyframes pulse-wa {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,.4); }
+      50% { box-shadow: 0 4px 30px rgba(37,211,102,.7); }
+    }
+
+    /* ══════════════════════════════════════
+       TABLET (max 1024px)
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      nav { padding: 16px 28px; }
+      section { padding: 80px 36px; }
+      .about-grid { gap: 50px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .gallery-grid {
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: 220px 220px;
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .programs-grid { grid-template-columns: repeat(2,1fr); }
+      .services-grid { grid-template-columns: repeat(3,1fr); }
+      .rooms-grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE (max 768px)
+    ══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* NAV */
+      nav { padding: 14px 18px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .logo-svg { width: 40px; height: 40px; }
+      .logo-name { font-size: 0.85rem; letter-spacing: 2px; }
+      .logo-tagline { font-size: 0.55rem; letter-spacing: 2px; }
+
+      /* HERO */
+      .hero { height: 100svh; min-height: 600px; }
+      .hero-decor { display: none; }
+      .hero-title { font-size: clamp(2.2rem, 11vw, 3.5rem); }
+      .hero-sub { font-size: 0.95rem; padding: 0 10px; }
+      .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+      .btn-gold, .btn-outline { width: 80%; text-align: center; padding: 14px 20px; font-size: 0.75rem; }
+
+      /* SECTIONS */
+      section { padding: 60px 18px; }
+      .section-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+      .section-desc { font-size: 0.95rem; }
+
+      /* ABOUT */
+      .about-grid { grid-template-columns: 1fr; gap: 50px; }
+      .about-img-wrap { max-width: 100%; }
+      .about-img { aspect-ratio: 16/10; }
+      .about-img-accent { width: 45%; bottom: -15px; right: -10px; }
+      .about-badge { left: -10px; padding: 14px; }
+      .about-badge strong { font-size: 1.5rem; }
+      .about-text h2 { font-size: 1.8rem; }
+      .about-stats { grid-template-columns: repeat(3,1fr); gap: 16px; }
+      .stat strong { font-size: 1.4rem; }
+      .stat span { font-size: 0.7rem; }
+
+      /* PROGRAMS */
+      .programs-grid { grid-template-columns: 1fr; gap: 20px; }
+      .program-img { height: 180px; }
+      .program-body { padding: 20px; }
+
+      /* MENU */
+      .menu-tabs { gap: 0; }
+      .menu-tab { padding: 10px 16px; font-size: 0.7rem; letter-spacing: 1px; flex: 1; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-item { flex-direction: row; padding: 16px 0; }
+      .menu-item-price { white-space: nowrap; font-size: 0.95rem; }
+
+      /* GALLERY */
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 6px;
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; height: 200px; }
+      .gallery-item { height: 130px; }
+      .gallery-item img { height: 100%; }
+
+      /* ROOMS */
+      .rooms-grid { grid-template-columns: 1fr; gap: 24px; }
+      .room-img { height: 200px; }
+      .room-body { padding: 22px; }
+      .room-features { gap: 8px; }
+      .room-feature { font-size: 0.7rem; padding: 4px 10px; }
+
+      /* SERVICES */
+      .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .service-card { padding: 28px 16px; }
+      .service-icon { font-size: 2rem; }
+      .service-name { font-size: 0.75rem; }
+      .service-desc { font-size: 0.82rem; }
+
+      /* BOOKING */
+      .booking-container { grid-template-columns: 1fr; gap: 36px; }
+      .booking-info h3 { font-size: 1.6rem; }
+      .form-row { grid-template-columns: 1fr; gap: 14px; }
+      .form-group input, .form-group select, .form-group textarea { font-size: 0.95rem; padding: 12px 14px; }
+      .book-btn { font-size: 0.78rem; padding: 14px; }
+
+      /* WHATSAPP */
+      .wa-container { grid-template-columns: 1fr; gap: 36px; }
+      .wa-info h2 { font-size: 1.7rem; }
+      .wa-cards { gap: 16px; }
+      .wa-card { padding: 20px; }
+      .wa-card p { font-size: 0.85rem; }
+      .wa-card-btn { padding: 10px 18px; font-size: 0.72rem; }
+
+      /* TESTIMONIALS */
+      .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+      .testimonial-card { padding: 28px 22px; }
+      .testimonial-text { font-size: 0.95rem; }
+
+      /* CONTACT */
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .contact-info h3 { font-size: 1.5rem; }
+      .map-placeholder { height: 200px; padding: 20px; }
+
+      /* FOOTER */
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+      footer { padding: 50px 18px 24px; }
+      .footer-brand h3 { font-size: 1.1rem; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 8px; font-size: 0.75rem; }
+
+      /* FLOAT WA */
+      .float-wa { bottom: 18px; right: 18px; width: 52px; height: 52px; }
+      .float-wa svg { width: 24px; height: 24px; }
+    }
+
+    /* ══════════════════════════════════════
+       SMALL MOBILE (max 480px)
+    ══════════════════════════════════════ */
+    @media (max-width: 480px) {
+      section { padding: 50px 14px; }
+      .hero-title { font-size: clamp(1.9rem, 10vw, 2.8rem); }
+      .hero-tag { font-size: 0.62rem; letter-spacing: 3px; }
+      .hero-sub { font-size: 0.88rem; }
+      .btn-gold, .btn-outline { width: 90%; font-size: 0.72rem; padding: 13px 16px; }
+      .section-title { font-size: clamp(1.4rem, 8vw, 2rem); }
+      .section-tag { font-size: 0.62rem; letter-spacing: 3px; }
+
+      .about-stats { grid-template-columns: repeat(3,1fr); gap: 10px; }
+      .stat strong { font-size: 1.2rem; }
+
+      .menu-tab { padding: 9px 10px; font-size: 0.65rem; letter-spacing: 0px; }
+      .menu-item-info h4 { font-size: 0.97rem; }
+      .menu-item-info p { font-size: 0.8rem; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .service-card { padding: 22px 12px; }
+      .service-icon { font-size: 1.8rem; margin-bottom: 10px; }
+      .service-desc { font-size: 0.78rem; }
+
+      .room-card { border-radius: 0; }
+      .room-price { font-size: 1.05rem; }
+
+      .wa-detail { padding: 14px; gap: 12px; }
+      .wa-detail-icon { font-size: 1.2rem; }
+      .wa-detail-text strong { font-size: 0.75rem; }
+      .wa-detail-text span { font-size: 0.82rem; }
+
+      .programs-grid { grid-template-columns: 1fr; }
+      .program-img { height: 170px; }
+
+      .gallery-item:nth-child(1) { height: 170px; }
+      .gallery-item { height: 110px; }
+
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-col { border-top: 1px solid rgba(201,168,76,0.1); padding-top: 20px; }
+      .footer-col ul { gap: 12px; }
+      .footer-col ul li a { font-size: 0.95rem; }
+
+      .logo-svg { width: 36px; height: 36px; }
+      .logo-name { font-size: 0.78rem; letter-spacing: 1.5px; }
+      .logo-tagline { display: none; }
+
+      .about-img-accent { display: none; }
+      .about-badge { left: 0; }
+
+      .nav-cta { display: none; }
+
+      .booking-hours li { flex-direction: column; gap: 2px; }
+      .booking-hours li span { color: var(--gold); }
+    }
+
+    /* ══════════════════════════════════════
+       TOUCH IMPROVEMENTS
+    ══════════════════════════════════════ */
+    @media (hover: none) {
+      .btn-gold:hover, .btn-outline:hover,
+      .book-btn:hover, .btn-wa:hover,
+      .wa-card-btn:hover { transform: none; }
+      .program-card:hover, .room-card:hover,
+      .service-card:hover { transform: none; border-color: rgba(201,168,76,0.3); }
+    }
+
+    /* ── MOBILE MENU OPEN STATE ── */
+    .mobile-menu-open .nav-links {
+      display: flex !important;
+      flex-direction: column;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: rgba(10,8,3,0.98);
+      padding: 24px 24px 36px;
+      gap: 0;
+      z-index: 997;
+      border-top: 1px solid rgba(201,168,76,0.2);
+      backdrop-filter: blur(12px);
+    }
+    .mobile-menu-open .nav-links li {
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .mobile-menu-open .nav-links a {
+      display: block; padding: 16px 8px;
+      font-size: 0.9rem; letter-spacing: 3px;
+    }
+    .mobile-menu-open .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+      transition: transform .3s;
+    }
+    .mobile-menu-open .hamburger span:nth-child(2) {
+      opacity: 0; transition: opacity .3s;
+    }
+    .mobile-menu-open .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+      transition: transform .3s;
+    }
+    .hamburger span { transition: transform .3s, opacity .3s; }
+
+    /* ── MOBILE BOOK CTA IN MENU ── */
+    .mobile-book-cta {
+      display: none;
+      margin-top: 18px;
+      background: var(--gold); color: var(--dark);
+      padding: 14px; text-align: center;
+      font-family: 'Cinzel', serif; font-size: 0.8rem;
+      letter-spacing: 2px; text-decoration: none;
+      font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .mobile-book-cta { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── FLOATING WHATSAPP ── -->
+<a href="https://wa.me/919923054425?text=Hello%20Royal%20Dine%20%26%20Stay!%20I%20need%20assistance." class="float-wa" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-.133-.634-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.266-.467.3-.867.1-.4-.2-1.686-.622-3.21-1.98-1.187-1.057-1.988-2.363-2.22-2.763-.234-.4-.025-.616.175-.816.18-.18.4-.467.6-.7.2-.233.267-.4.4-.666.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.367-1.4 3.333 0 1.967 1.433 3.867 1.633 4.133.2.267 2.82 4.305 6.832 6.034 4.014 1.73 4.014 1.153 4.738 1.08.724-.073 2.33-.952 2.662-1.87.33-.92.33-1.707.23-1.87-.1-.16-.367-.26-.767-.46z"/></svg>
+</a>
+
+<!-- ── NAVBAR ── -->
+<nav>
+<a href="#" class="nav-logo">
+    <!-- Animated Crown & Ring Logo -->
+    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer spinning dashed ring -->
+      <g class="logo-ring-outer">
+        <circle cx="50" cy="50" r="46" stroke="#c9a84c" stroke-width="1.2" stroke-dasharray="6 4" opacity=".7"/>
+      </g>
+      <!-- Inner spinning ring -->
+      <g class="logo-ring-inner">
+        <circle cx="50" cy="50" r="38" stroke="#e8cc7a" stroke-width="0.8" stroke-dasharray="3 5" opacity=".4"/>
+      </g>
+      <!-- Solid gold border ring -->
+      <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="1.5" opacity=".9"/>
+      <!-- Dark fill background -->
+      <circle cx="50" cy="50" r="40" fill="#0d0a05"/>
+      <!-- Crown shape -->
+      <g class="logo-crown">
+        <!-- Crown base -->
+        <rect x="28" y="58" width="44" height="6" rx="1.5" fill="#c9a84c"/>
+        <!-- Crown body left peak -->
+        <polygon points="28,58 28,42 37,52 44,36 50,52 56,36 63,52 72,42 72,58" fill="#c9a84c"/>
+        <!-- Crown jewel center -->
+        <circle cx="50" cy="36" r="3" fill="#fdf8ef"/>
+        <!-- Crown jewel left -->
+        <circle cx="44.5" cy="52.5" r="2" fill="#e8cc7a"/>
+        <!-- Crown jewel right -->
+        <circle cx="55.5" cy="52.5" r="2" fill="#e8cc7a"/>
+        <!-- Shine line on crown -->
+        <line x1="31" y1="55" x2="69" y2="55" stroke="rgba(255,248,230,0.25)" stroke-width="1"/>
+      </g>
+      <!-- Corner dots (twinkling) -->
+      <g>
+        <circle class="logo-dot" cx="50" cy="8" r="2" fill="#c9a84c"/>
+        <circle class="logo-dot" cx="50" cy="92" r="2" fill="#c9a84c"/>
+        <circle class="logo-dot" cx="8" cy="50" r="2" fill="#c9a84c"/>
+        <circle class="logo-dot" cx="92" cy="50" r="2" fill="#c9a84c"/>
+      </g>
+      <!-- Diagonal star marks -->
+      <circle cx="21" cy="21" r="1.5" fill="#c9a84c" opacity=".6"/>
+      <circle cx="79" cy="21" r="1.5" fill="#c9a84c" opacity=".6"/>
+      <circle cx="21" cy="79" r="1.5" fill="#c9a84c" opacity=".6"/>
+      <circle cx="79" cy="79" r="1.5" fill="#c9a84c" opacity=".6"/>
+    </svg>
+    <div class="logo-text-wrap">
+      <span class="logo-name">ROYAL DINE</span>
+      <span class="logo-tagline">✦ &amp; Stay ✦</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Table</button>
+  <div class="hamburger" aria-label="Menu"><span></span><span></span><span></span></div>
+</nav>
+<!-- Mobile menu Book Table CTA — injected by JS -->
+<style>
+  .mobile-menu-open .nav-links::after { content: ''; }
+</style>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-decor"></div>
+  <div class="hero-content">
+    <p class="hero-tag">✦ Luxury Dining & Accommodation ✦</p>
+    <h1 class="hero-title">Royal <em>Dine</em><br/>& Stay</h1>
+    <p class="hero-sub">Exceptional cuisine, luxurious rooms & unforgettable celebrations</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-gold">Reserve a Table</a>
+      <a href="#rooms" class="btn-outline">Book a Room</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=700&q=80" alt="Restaurant Interior" class="about-img"/>
+      <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=500&q=80" alt="Chef Cooking" class="about-img-accent"/>
+      <div class="about-badge"><strong>15+</strong><span>Years of Excellence</span></div>
+    </div>
+    <div class="about-text">
+      <span class="section-tag">Our Story</span>
+      <h2>Where Every Meal<br/>Becomes a Memory</h2>
+      <p>Nestled in the heart of the city, Royal Dine & Stay has been a landmark of culinary excellence and warm hospitality for over 15 years. We believe every guest deserves an experience that lingers long after the last bite.</p>
+      <p>Our master chefs craft each dish with locally sourced ingredients and time-honoured recipes, while our dedicated team ensures your stay is nothing short of extraordinary — whether you're dining, celebrating, or resting in one of our elegant rooms.</p>
+      <div class="about-stats">
+        <div class="stat"><strong>500+</strong><span>Events Hosted</span></div>
+        <div class="stat"><strong>50+</strong><span>Signature Dishes</span></div>
+        <div class="stat"><strong>20</strong><span>Luxury Rooms</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROGRAMS ── -->
+<section class="programs" id="programs">
+  <div class="section-header">
+    <span class="section-tag">Special Occasions</span>
+    <h2 class="section-title">We Host Every <em>Celebration</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">From intimate birthdays to grand weddings, we create bespoke experiences tailored to your vision.</p>
+  </div>
+  <div class="programs-grid">
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=600&q=80" alt="Birthday" class="program-img"/>
+      <div class="program-body">
+        <div class="program-icon">🎂</div>
+        <div class="program-name">Birthday Parties</div>
+        <p class="program-desc">Make your birthday unforgettable with personalized decor, custom cakes, live music, and a dedicated host to ensure every detail is perfect.</p>
+        <span class="program-tag">Private Hall Available</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Wedding" class="program-img"/>
+      <div class="program-body">
+        <div class="program-icon">💍</div>
+        <div class="program-name">Weddings & Receptions</div>
+        <p class="program-desc">Say "I do" in timeless elegance. Our team handles floral arrangements, catering, lighting, and every detail of your dream wedding.</p>
+        <span class="program-tag">Up to 500 Guests</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&q=80" alt="Corporate" class="program-img"/>
+      <div class="program-body">
+        <div class="program-icon">💼</div>
+        <div class="program-name">Corporate Events</div>
+        <p class="program-desc">Professional conference rooms, AV equipment, catering packages, and team-building dinner experiences for businesses of all sizes.</p>
+        <span class="program-tag">AV & Wi-Fi Included</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Anniversary" class="program-img"/>
+      <div class="program-body">
+        <div class="program-icon">🌹</div>
+        <div class="program-name">Anniversaries</div>
+        <p class="program-desc">Celebrate your love story with candlelit dinners, rose petal setups, champagne toasts, and a private corner just for two.</p>
+        <span class="program-tag">Romantic Packages</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1620543297100-d9a4e1b87b0e?w=600&q=80" alt="Baby Shower" class="program-img"/>
+      <div class="program-body">
+        <div class="program-icon">🍼</div>
+        <div class="program-name">Baby Showers & Naming</div>
+        <p class="program-desc">Welcome the newest member of the family in style with themed decor, special menus, and joyful setups that everyone will cherish.</p>
+        <span class="program-tag">Custom Themes</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1530062845289-9109b2c9c868?w=600&q=80" alt="Kitty Party" class="program-img"/>
+      <div class="program-body">
+        <div class="program-icon">👒</div>
+        <div class="program-name">Kitty Parties & Get-Togethers</div>
+        <p class="program-desc">Fun, vibrant, and delicious — our team sets up the perfect social gathering with games, themed setups, and our signature buffet spreads.</p>
+        <span class="program-tag">Group Packages</span>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top: 50px;">
+    <a href="https://wa.me/919923054425?text=Hello!%20I%27d%20like%20to%20enquire%20about%20event%20packages%20at%20Royal%20Dine%20%26%20Stay." class="btn-gold" target="_blank">Enquire About Events on WhatsApp</a>
+  </div>
+</section>
+
+<!-- ── MENU ── -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <span class="section-tag">Our Cuisine</span>
+    <h2 class="section-title">A Symphony of <em>Flavours</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="switchTab('starters')">Starters</button>
+    <button class="menu-tab" onclick="switchTab('mains')">Main Course</button>
+    <button class="menu-tab" onclick="switchTab('desserts')">Desserts</button>
+    <button class="menu-tab" onclick="switchTab('drinks')">Beverages</button>
+  </div>
+  <div class="menu-grid active" id="starters">
+    <div class="menu-item"><div class="menu-item-info"><h4>Tandoori Seekh Kebab</h4><p>Minced lamb with aromatic spices, grilled in clay oven</p></div><div class="menu-item-price">₹380</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Paneer Tikka Royal</h4><p>Marinated cottage cheese with bell peppers & mint chutney</p></div><div class="menu-item-price">₹320</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Crispy Prawn Tempura</h4><p>Lightly battered prawns with wasabi mayo & lemon</p></div><div class="menu-item-price">₹480</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Mushroom Galette</h4><p>Wild mushrooms on puff pastry with truffle cream</p></div><div class="menu-item-price">₹290</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Dahi Ke Sholay</h4><p>Crispy yoghurt parcels with sweet tamarind & coriander</p></div><div class="menu-item-price">₹260</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Chicken Malai Tikka</h4><p>Tender chicken in cream marinade with saffron touch</p></div><div class="menu-item-price">₹420</div></div>
+  </div>
+  <div class="menu-grid" id="mains">
+    <div class="menu-item"><div class="menu-item-info"><h4>Dum Gosht Biryani</h4><p>Slow-cooked fragrant rice with aged spices & saffron</p></div><div class="menu-item-price">₹580</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Dal Makhani Heritage</h4><p>24-hour slow-cooked black lentils with butter & cream</p></div><div class="menu-item-price">₹320</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Murgh Lababdar</h4><p>Tomato-cream chicken with aromatic fenugreek</p></div><div class="menu-item-price">₹480</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Raan-e-Yakhni</h4><p>Slow-braised whole leg of lamb in Kashmiri spices</p></div><div class="menu-item-price">₹1200</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Shahi Paneer</h4><p>Cottage cheese in a rich cashew and tomato gravy</p></div><div class="menu-item-price">₹380</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Prawn Masala</h4><p>Tiger prawns in coastal spice gravy with coconut</p></div><div class="menu-item-price">₹620</div></div>
+  </div>
+  <div class="menu-grid" id="desserts">
+    <div class="menu-item"><div class="menu-item-info"><h4>Gulab Jamun Royale</h4><p>Saffron-infused milk dumplings with rose ice cream</p></div><div class="menu-item-price">₹180</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Belgian Chocolate Lava</h4><p>Warm dark chocolate cake with vanilla gelato</p></div><div class="menu-item-price">₹280</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Phirni Trilogy</h4><p>Three classic rice puddings with pistachio & cardamom</p></div><div class="menu-item-price">₹220</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Rabri Kulfi</h4><p>Traditional frozen dessert with condensed milk & nuts</p></div><div class="menu-item-price">₹160</div></div>
+  </div>
+  <div class="menu-grid" id="drinks">
+    <div class="menu-item"><div class="menu-item-info"><h4>Royal Masala Chai</h4><p>Spiced tea with cardamom, ginger and cloves</p></div><div class="menu-item-price">₹80</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Mango Aamras Lassi</h4><p>Thick yoghurt mango smoothie with saffron</p></div><div class="menu-item-price">₹150</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Fresh Lime Soda</h4><p>Sweet or salted, with mint and black salt</p></div><div class="menu-item-price">₹90</div></div>
+    <div class="menu-item"><div class="menu-item-info"><h4>Virgin Mojito</h4><p>Fresh mint, lime and sparkling water with crushed ice</p></div><div class="menu-item-price">₹160</div></div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section class="gallery" id="gallery" style="padding-bottom: 80px;">
+  <div class="section-header">
+    <span class="section-tag">Gallery</span>
+    <h2 class="section-title">A Glimpse of Our <em>World</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80" alt="Hotel Pool"/><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="Hotel Room"/><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine Dining"/><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Hotel Lobby"/><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Gourmet Food"/><div class="gallery-overlay"></div></div>
+  </div>
+</section>
+
+<!-- ── ROOMS ── -->
+<section class="rooms" id="rooms">
+  <div class="section-header">
+    <span class="section-tag">Accommodation</span>
+    <h2 class="section-title">Stay in <em>Elegance</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">Our luxurious rooms blend contemporary comfort with timeless elegance — perfect for overnight guests, celebrations, and extended stays.</p>
+  </div>
+  <div class="rooms-grid">
+    <!-- Room 1 -->
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Deluxe Room" class="room-img"/>
+      <div class="room-body">
+        <div class="room-name">✦ Deluxe Room</div>
+        <p class="room-desc">A beautifully furnished room with plush bedding, city views, and all modern amenities for a comfortable stay.</p>
+        <div class="room-features">
+          <span class="room-feature">🛏 King Bed</span>
+          <span class="room-feature">📺 Smart TV</span>
+          <span class="room-feature">❄️ AC</span>
+          <span class="room-feature">🚿 En-suite Bath</span>
+          <span class="room-feature">📶 Free Wi-Fi</span>
+          <span class="room-feature">☕ Room Service</span>
+        </div>
+        <div class="room-price">₹3,500 <span>/ night</span></div>
+        <a href="https://wa.me/919923054425?text=Hello!%20I%27d%20like%20to%20book%20the%20*Deluxe%20Room*%20at%20Royal%20Dine%20%26%20Stay.%20Please%20share%20availability." class="btn-wa" target="_blank">
+          <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-.133-.634-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.266-.467.3-.867.1-.4-.2-1.686-.622-3.21-1.98-1.187-1.057-1.988-2.363-2.22-2.763-.234-.4-.025-.616.175-.816.18-.18.4-.467.6-.7.2-.233.267-.4.4-.666.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.367-1.4 3.333 0 1.967 1.433 3.867 1.633 4.133.2.267 2.82 4.305 6.832 6.034 4.014 1.73 4.014 1.153 4.738 1.08.724-.073 2.33-.952 2.662-1.87.33-.92.33-1.707.23-1.87-.1-.16-.367-.26-.767-.46z"/></svg>
+          Book on WhatsApp
+        </a>
+      </div>
+    </div>
+    <!-- Room 2 -->
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700&q=80" alt="Suite" class="room-img"/>
+      <div class="room-body">
+        <div class="room-name">✦ Royal Suite</div>
+        <p class="room-desc">An expansive suite with a separate living area, Jacuzzi bath, premium linens, and personalised butler service throughout your stay.</p>
+        <div class="room-features">
+          <span class="room-feature">🛏 Super King</span>
+          <span class="room-feature">🛁 Jacuzzi</span>
+          <span class="room-feature">🍽 Breakfast Incl.</span>
+          <span class="room-feature">🎬 Home Theatre</span>
+          <span class="room-feature">🧖 Spa Access</span>
+          <span class="room-feature">🍾 Welcome Hamper</span>
+        </div>
+        <div class="room-price">₹7,500 <span>/ night</span></div>
+        <a href="https://wa.me/919923054425?text=Hello!%20I%27d%20like%20to%20book%20the%20*Royal%20Suite*%20at%20Royal%20Dine%20%26%20Stay.%20Please%20share%20availability." class="btn-wa" target="_blank">
+          <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-.133-.634-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.266-.467.3-.867.1-.4-.2-1.686-.622-3.21-1.98-1.187-1.057-1.988-2.363-2.22-2.763-.234-.4-.025-.616.175-.816.18-.18.4-.467.6-.7.2-.233.267-.4.4-.666.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.367-1.4 3.333 0 1.967 1.433 3.867 1.633 4.133.2.267 2.82 4.305 6.832 6.034 4.014 1.73 4.014 1.153 4.738 1.08.724-.073 2.33-.952 2.662-1.87.33-.92.33-1.707.23-1.87-.1-.16-.367-.26-.767-.46z"/></svg>
+          Book on WhatsApp
+        </a>
+      </div>
+    </div>
+    <!-- Room 3 -->
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Family Room" class="room-img"/>
+      <div class="room-body">
+        <div class="room-name">✦ Family Room</div>
+        <p class="room-desc">Spacious and comfortable, designed for families with two bedrooms, a common lounge, dedicated kids' corner, and extra amenities.</p>
+        <div class="room-features">
+          <span class="room-feature">🛏 2 Bedrooms</span>
+          <span class="room-feature">🧒 Kids Corner</span>
+          <span class="room-feature">📺 2 Smart TVs</span>
+          <span class="room-feature">🍽 Kitchenette</span>
+          <span class="room-feature">❄️ Central AC</span>
+          <span class="room-feature">🎮 Game Console</span>
+        </div>
+        <div class="room-price">₹5,500 <span>/ night</span></div>
+        <a href="https://wa.me/919923054425?text=Hello!%20I%27d%20like%20to%20book%20the%20*Family%20Room*%20at%20Royal%20Dine%20%26%20Stay.%20Please%20share%20availability." class="btn-wa" target="_blank">
+          <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-.133-.634-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.266-.467.3-.867.1-.4-.2-1.686-.622-3.21-1.98-1.187-1.057-1.988-2.363-2.22-2.763-.234-.4-.025-.616.175-.816.18-.18.4-.467.6-.7.2-.233.267-.4.4-.666.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.367-1.4 3.333 0 1.967 1.433 3.867 1.633 4.133.2.267 2.82 4.305 6.832 6.034 4.014 1.73 4.014 1.153 4.738 1.08.724-.073 2.33-.952 2.662-1.87.33-.92.33-1.707.23-1.87-.1-.16-.367-.26-.767-.46z"/></svg>
+          Book on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section class="services" id="services">
+  <div class="section-header">
+    <span class="section-tag">What We Offer</span>
+    <h2 class="section-title">Our <em>Facilities</em> & Services</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><span class="service-icon">🍽️</span><div class="service-name">Fine Dining</div><p class="service-desc">Curated multi-course dining experiences with world-class presentation and authentic flavours.</p></div>
+    <div class="service-card"><span class="service-icon">🎪</span><div class="service-name">Banquet Hall</div><p class="service-desc">Elegant air-conditioned banquet hall for up to 500 guests with premium AV equipment included.</p></div>
+    <div class="service-card"><span class="service-icon">🏊</span><div class="service-name">Swimming Pool</div><p class="service-desc">Temperature-controlled rooftop pool available exclusively to hotel guests and event bookings.</p></div>
+    <div class="service-card"><span class="service-icon">💆</span><div class="service-name">Spa & Wellness</div><p class="service-desc">Rejuvenating treatments, massages and wellness therapies delivered by certified professionals.</p></div>
+    <div class="service-card"><span class="service-icon">🚗</span><div class="service-name">Valet Parking</div><p class="service-desc">Complimentary valet parking for all dining and hotel guests. Secure and monitored 24/7.</p></div>
+    <div class="service-card"><span class="service-icon">🎵</span><div class="service-name">Live Music</div><p class="service-desc">Live band performances every Friday and Saturday evening to elevate your dining experience.</p></div>
+    <div class="service-card"><span class="service-icon">👨‍🍳</span><div class="service-name">Private Chef</div><p class="service-desc">Book a private chef for your room or special event with a personalised tasting menu.</p></div>
+    <div class="service-card"><span class="service-icon">🚀</span><div class="service-name">Catering Service</div><p class="service-desc">We cater at your venue — weddings, corporate events, birthdays — anywhere in the city.</p></div>
+  </div>
+</section>
+
+<!-- ── TABLE BOOKING ── -->
+<section class="booking" id="booking">
+  <div class="section-header">
+    <span class="section-tag">Reservations</span>
+    <h2 class="section-title">Reserve Your <em>Table</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="booking-container">
+    <div class="booking-info">
+      <h3>Dine with Us in Luxury</h3>
+      <p>Whether it's a romantic dinner for two or a celebration for twenty, we'll craft an experience that exceeds every expectation. Reservations recommended. Walk-ins welcome based on availability.</p>
+      <div class="booking-hours">
+        <h4>Opening Hours</h4>
+        <ul>
+          <li>Monday – Thursday <span>12:00 PM – 11:00 PM</span></li>
+          <li>Friday <span>12:00 PM – 12:00 AM</span></li>
+          <li>Saturday <span>11:00 AM – 12:00 AM</span></li>
+          <li>Sunday <span>11:00 AM – 10:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <form class="booking-form" onsubmit="submitBooking(event)">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" id="b-name" placeholder="Your name" required/></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="b-phone" placeholder="+91 XXXXX XXXXX" required/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="b-date" required/></div>
+        <div class="form-group"><label>Time</label><input type="time" id="b-time" required/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Guests</label>
+          <select id="b-guests">
+            <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
+            <option>4 Guests</option><option>5 Guests</option><option>6 Guests</option>
+            <option>7-10 Guests</option><option>10+ Guests</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Occasion</label>
+          <select id="b-occasion">
+            <option>Regular Dining</option><option>Birthday</option><option>Anniversary</option>
+            <option>Wedding/Reception</option><option>Corporate</option><option>Baby Shower</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Special Requests</label><textarea id="b-note" placeholder="Dietary requirements, special decorations, seating preference..."></textarea></div>
+      <button type="submit" class="book-btn">
+        <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-.133-.634-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.266-.467.3-.867.1-.4-.2-1.686-.622-3.21-1.98-1.187-1.057-1.988-2.363-2.22-2.763-.234-.4-.025-.616.175-.816.18-.18.4-.467.6-.7.2-.233.267-.4.4-.666.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.367-1.4 3.333 0 1.967 1.433 3.867 1.633 4.133.2.267 2.82 4.305 6.832 6.034 4.014 1.73 4.014 1.153 4.738 1.08.724-.073 2.33-.952 2.662-1.87.33-.92.33-1.707.23-1.87-.1-.16-.367-.26-.767-.46z"/></svg>
+        Confirm via WhatsApp
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ── WHATSAPP SECTION ── -->
+<section class="whatsapp-section" id="whatsapp">
+  <div class="section-header">
+    <span class="section-tag">Connect With Us</span>
+    <h2 class="section-title">Chat Directly on <em>WhatsApp</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="wa-container">
+    <div class="wa-info">
+      <h2>Royal Dine & Stay</h2>
+      <p>We're just a message away. Reach us on WhatsApp for instant bookings, enquiries, event planning, and more. Our team responds within minutes.</p>
+      <div class="wa-details">
+        <div class="wa-detail">
+          <span class="wa-detail-icon">🏨</span>
+          <div class="wa-detail-text">
+            <strong>Restaurant Name</strong>
+            <span>Royal Dine & Stay</span>
+          </div>
+        </div>
+        <div class="wa-detail">
+          <span class="wa-detail-icon">📍</span>
+          <div class="wa-detail-text">
+            <strong>Address</strong>
+            <span>Main Chowk, Near City Centre, Your City — Please update with your actual address</span>
+          </div>
+        </div>
+        <div class="wa-detail">
+          <span class="wa-detail-icon">📞</span>
+          <div class="wa-detail-text">
+            <strong>WhatsApp Number</strong>
+            <span>+91 99230 54425</span>
+          </div>
+        </div>
+        <div class="wa-detail">
+          <span class="wa-detail-icon">⏰</span>
+          <div class="wa-detail-text">
+            <strong>Response Time</strong>
+            <span>Usually within 5–10 minutes during business hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wa-cards">
+      <div class="wa-card">
+        <div class="wa-card-title">🎂 BOOK AN EVENT</div>
+        <p>Birthday, Wedding, Anniversary, Baby Shower, Corporate or any special occasion — chat with us to plan everything.</p>
+        <a href="https://wa.me/919923054425?text=Hello%20Royal%20Dine%20%26%20Stay!%20I%27d%20like%20to%20plan%20a%20special%20event.%20Can%20you%20help%20me%3F" class="wa-card-btn" target="_blank">
+          <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-.133-.634-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.266-.467.3-.867.1-.4-.2-1.686-.622-3.21-1.98-1.187-1.057-1.988-2.363-2.22-2.763-.234-.4-.025-.616.175-.816.18-.18.4-.467.6-.7.2-.233.267-.4.4-.666.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.367-1.4 3.333 0 1.967 1.433 3.867 1.633 4.133.2.267 2.82 4.305 6.832 6.034 4.014 1.73 4.014 1.153 4.738 1.08.724-.073 2.33-.952 2.662-1.87.33-.92.33-1.707.23-1.87-.1-.16-.367-.26-.767-.46z"/></svg>
+          Chat for Events
+        </a>
+      </div>
+      <div class="wa-card">
+        <div class="wa-card-title">🍽️ TABLE RESERVATION</div>
+        <p>Reserve your table instantly. Tell us the date, time, number of guests and any special requirements.</p>
+        <a href="https://wa.me/919923054425?text=Hello!%20I%27d%20like%20to%20reserve%20a%20table%20at%20Royal%20Dine%20%26%20Stay." class="wa-card-btn" target="_blank">
+          <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.465 2.018 7.762L0 32l8.465-2.218A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.857-1.905l-.49-.293-5.03 1.318 1.34-4.895-.32-.506A13.27 13.27 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.29-9.93c-.4-.2-2.363-1.166-2.73-1.3-.367-
